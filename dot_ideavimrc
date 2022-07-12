@@ -1,0 +1,16 @@
+set clipboard+=unnamed
+set visualbell
+set noerrorbells
+
+set surround
+set multiple-cursors
+set commentary
+set easymotion
+set indent-object
+set paragraph-motion
+set NERDTree
+
+source ~/.config/nvim/basic.vim
+source ~/.config/nvim/extended.vim
+source ~/.config/nvim/plugin.vim
+

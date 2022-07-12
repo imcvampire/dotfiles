@@ -1,0 +1,72 @@
+# This is Git's per-user configuration file.
+# Please adapt and uncomment the following lines:
+#	name = NQA
+#	email = nqa@nqa-laptop.(none)
+[user]
+	name = imcvampire
+	email = quocanh96@gmail.com
+	signingkey = 71657246
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = nvim
+  pager = delta
+
+[alias]
+  a = add
+  b = branch
+  c = commit
+  d = diff
+  f = fetch
+  g = grep
+  l = log
+  m = merge
+  p = push
+  pr = pull --rebase
+  r = remote
+  rb = rebase
+  rbc = rebase --continue
+  rbs = rebase --skip
+  w = whatchanged
+  graph = log -15 --branches --remotes --tags --graph --oneline --decorate=full HEAD
+  stt = status
+  co = checkout
+  unstage = reset HEAD --
+  last = log -1 HEAD
+  push-to-all-remotes = !git remote | xargs -I% -n1 git push %
+  uncommit = reset --soft HEAD~1
+  uncommit-hard = reset --hard HEAD~1
+  unadd = reset HEAD
+  unstage = reset HEAD
+[commit]
+	gpgsign = true
+[merge]
+	ff = false
+[log]
+	date = auto:human
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+
+[delta]
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate = true
+    line-numbers = true
+
+[interactive]
+    diffFilter = delta
+
+[diff]
+    colorMoved = default
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+
+[pull]
+    rebase = true
+[rebase]
+    autostash = true
+[credential]
+	helper = /usr/local/share/gcm-core/git-credential-manager-core
