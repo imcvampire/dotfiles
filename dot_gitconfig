@@ -50,7 +50,7 @@
 
 [diff]
   colorMoved = default
-	external = difft
+  external = difft
   tool = difftastic
 
 [difftool]
