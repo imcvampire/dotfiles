@@ -57,6 +57,11 @@ alias cmod744='sudo chmod 744'
 alias cmod766='sudo chmod 766'
 alias cmod644='sudo chmod 644'
 
+alias bathelp='bat --plain --language=help'
+help() {
+    "$@" --help 2>&1 | bathelp
+}
+
 # Custom scripts
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
