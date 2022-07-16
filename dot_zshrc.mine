@@ -27,7 +27,7 @@ alias _resource-tmux='tmux source ~/.tmux.conf'
 
 alias top='htop'
 alias cal='cal -m -n 3'
-
+alias cat='bat --paging=never'
 alias vim='nvim'
 alias ls='lsd --group-dirs=first'
 alias la='lsd -al --group-dirs=first'
