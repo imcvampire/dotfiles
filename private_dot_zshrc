@@ -19,7 +19,7 @@ zstyle ':z4h:bindkey' keyboard  'mac'
 # Mark up shell's output with semantic information.
 zstyle ':z4h:' term-shell-integration 'yes'
 
-zstyle ':z4h:' iterm2-integration 'yes'
+zstyle ':z4h:' iterm2-integration 'no'
 
 zstyle :z4h: start-tmux 'no'
 
