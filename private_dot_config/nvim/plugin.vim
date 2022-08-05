@@ -38,6 +38,7 @@ call dein#add('kyazdani42/nvim-web-devicons')
 call dein#add('w0rp/ale')
 call dein#add('jiangmiao/auto-pairs')
 call dein#add('nvim-treesitter/nvim-treesitter', {'build': ':TSUpdate'})
+call dein#add('akinsho/bufferline.nvim', {'rev': 'v2.*'})
 
 " Required:
 call dein#end()
