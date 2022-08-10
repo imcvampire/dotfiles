@@ -67,7 +67,7 @@ nnoremap <leader>v <cmd>CHADopen<cr>
 
 " theme
 set termguicolors            " 24 bit color
-colorscheme duskfox
+colorscheme carbonfox
 
 " ale
 let g:ale_disable_lsp = 1
