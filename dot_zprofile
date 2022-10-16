@@ -13,11 +13,14 @@ export ANDROID_SDK_ROOT=$ANDROID_HOME
 # export RUST_SRC_PATH=~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 export JAVA_HOME=`/usr/libexec/java_home`
 
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
 export PATH=${PATH}:~/scripts
 export PATH=${PATH}:~/git-semantic-commits
 export PATH=${PATH}:${GOPATH}/bin
 export PATH=${PATH}:"$(ruby -e 'puts Gem.user_dir')/bin"
 export PATH=${PATH}:~/.local/share/bin
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
