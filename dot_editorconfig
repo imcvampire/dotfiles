@@ -21,3 +21,5 @@ end_of_line = crlf
 [Makefile]
 indent_style = tab
 
+[*.rs]
+indent_size = 4
