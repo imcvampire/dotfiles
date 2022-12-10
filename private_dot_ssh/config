@@ -1,5 +1,4 @@
 Host *
   AddKeysToAgent yes
-  # UseKeychain yes
-  # IdentityFile ~/.ssh/id_rsa
-  PKCS11Provider /usr/local/lib/opensc-pkcs11.so
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519_sk_rk

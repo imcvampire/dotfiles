@@ -5,7 +5,7 @@
 [user]
 	name = imcvampire
 	email = quocanh96@gmail.com
-  signingKey = "key::ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBOqkbZWuQ6NTTnLfZ0tiJAFKWDW1LbN8THRZMADN+MI4FAo4O8wk3NNEGH2jlvoLYL2sqEzXA3kdCvdp0M3rRNpAC1X/Ow673tTP+hTElxpZQRXDaUgvOaxV3EWIaA4e1g=="
+	signingKey = ~/.ssh/id_ed25519_sk_rk
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = nvim
