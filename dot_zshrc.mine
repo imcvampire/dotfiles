@@ -70,9 +70,10 @@ eval "$(jump shell)"
 
 case `uname` in
   Darwin)
-    . /usr/local/opt/asdf/asdf.sh
-
     HOMEBREW_PREFIX=$(brew --prefix)
+
+    . $(brew --prefix asdf)/libexec/asdf.sh
+
     if type brew &>/dev/null; then
       FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 
