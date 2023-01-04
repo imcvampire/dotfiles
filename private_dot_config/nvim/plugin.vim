@@ -1,60 +1,3 @@
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
-" Required:
-let g:python3_host_prog="/usr/bin/python3"
-let g:python_host_prog="/usr/bin/python2"
-set runtimepath+=~/.dein/repos/github.com/Shougo/dein.vim
-
-call dein#begin('~/.dein')
-
-" Let dein manage dein
-" Required:
-call dein#add('~/.dein/repos/github.com/Shougo/dein.vim')
-
-call dein#add('neovim/nvim-lspconfig')
-call dein#add('williamboman/nvim-lsp-installer')
-call dein#add('glepnir/lspsaga.nvim')
-call dein#add('hrsh7th/nvim-cmp')
-call dein#add('hrsh7th/cmp-nvim-lsp')
-call dein#add('hrsh7th/cmp-buffer')
-call dein#add('hrsh7th/cmp-path')
-call dein#add('hrsh7th/cmp-cmdline')
-call dein#add('ray-x/cmp-treesitter')
-call dein#add('saadparwaiz1/cmp_luasnip')
-call dein#add('L3MON4D3/LuaSnip')
-call dein#add('Yggdroot/indentLine')
-call dein#add('editorconfig/editorconfig-vim')
-call dein#add('ConradIrwin/vim-bracketed-paste')
-call dein#add('scrooloose/nerdcommenter')
-call dein#add('jlanzarotta/bufexplorer')
-call dein#add('ctrlpvim/ctrlp.vim')
-call dein#add('ms-jpq/chadtree', {'rev': 'chad', 'build': 'python3 -m chadtree deps'})
-call dein#add('tpope/vim-surround')
-call dein#add('EdenEast/nightfox.nvim')
-call dein#add('nvim-lualine/lualine.nvim')
-call dein#add('kyazdani42/nvim-web-devicons')
-call dein#add('w0rp/ale')
-call dein#add('jiangmiao/auto-pairs')
-call dein#add('nvim-treesitter/nvim-treesitter', {'build': ':TSUpdate'})
-call dein#add('akinsho/bufferline.nvim', {'rev': 'v2.*'})
-call dein#add('svermeulen/vim-cutlass')
-
-" Required:
-call dein#end()
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-"End dein Scripts-------------------------
-
 "indentLine
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_enabled = 1
@@ -86,13 +29,6 @@ function! LinterStatus() abort
     \   all_errors
     \)
 endfunction
-
-" nerdcommenter
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
 
 " lspsaga
 nnoremap <silent>K :Lspsaga hover_doc<CR>
