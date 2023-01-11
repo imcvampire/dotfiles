@@ -1,7 +1,4 @@
-# Env for Prezto
 ZSH_AUTOSUGGEST_USE_ASYNC=true
-SPACESHIP_BATTERY_SHOW=false
-SPACESHIP_EXIT_CODE_SHOW=true
 
 # Plugins
 source ~/.zplug/init.zsh
@@ -63,11 +60,6 @@ help() {
 }
 
 # Custom scripts
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-eval "$(jump shell)"
-
 case `uname` in
   Darwin)
     HOMEBREW_PREFIX=$(brew --prefix)
@@ -97,5 +89,6 @@ case `uname` in
   ;;
 esac
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(direnv hook zsh)"
-
+eval "$(zoxide init zsh --cmd j)"
