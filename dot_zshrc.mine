@@ -91,4 +91,4 @@ esac
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(direnv hook zsh)"
-eval "$(zoxide init zsh --cmd j)"
+eval "$(jump shell)"
