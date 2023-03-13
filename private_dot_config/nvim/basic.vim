@@ -107,11 +107,6 @@ set number
 " Enable syntax highlighting
 syntax enable
 
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
-
 set background=dark
 
 " Set extra options when running in GUI mode

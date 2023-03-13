@@ -39,12 +39,12 @@ require("lazy").setup({
   "ctrlpvim/ctrlp.vim",
   { "ms-jpq/chadtree", build = "python3 -m chadtree deps" },
   "tpope/vim-surround",
-  "EdenEast/nightfox.nvim",
   "nvim-lualine/lualine.nvim",
   "w0rp/ale",
   "jiangmiao/auto-pairs",
   { "akinsho/bufferline.nvim", version = "v3.*", dependencies = {'nvim-tree/nvim-web-devicons'} },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   "svermeulen/vim-cutlass",
+  { 'Everblush/nvim', name = 'everblush' },
 })
 
