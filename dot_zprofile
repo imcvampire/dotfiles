@@ -1,5 +1,7 @@
 [ -f ~/.profile ] && source ~/.profile
 
+export SSH_AUTH_SOCK="$(brew --prefix)/var/run/yubikey-agent.sock"
+
 export EDITOR='nvim'
 export VISUAL='nvim'
 export PAGER='less'

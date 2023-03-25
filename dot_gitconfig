@@ -5,7 +5,7 @@
 [user]
 	name = imcvampire
 	email = quocanh96@gmail.com
-	signingKey = ~/.ssh/id_ed25519_sk_rk
+	signingKey = "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBDaeXi2iMhCS7xnU2t/GoTVwdxyyqLFVCT+g2Mk41wNNhtJMRvMjwH/JaNjkkf7x54Jc0iozErcz6EbYZMIiigF1nkzvgBnzXcCN+Y/j5p5zY1tgpses8dGx4WMZ+Vdc3A=="
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = nvim
@@ -37,7 +37,7 @@
   unadd = reset HEAD
   unstage = reset HEAD
 [commit]
-	gpgsign = true
+	; gpgsign = true
 [merge]
 	ff = false
 [log]

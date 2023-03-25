@@ -2,5 +2,3 @@ Host *
   IgnoreUnknown UseKeychain
   UseKeychain yes
   AddKeysToAgent yes
-  IdentitiesOnly yes
-  IdentityFile ~/.ssh/id_ed25519_sk_rk
