@@ -68,3 +68,5 @@
 	allowedSignersFile = ~/.git_allowed_signers
 [fetch]
 	prune = true
+[push]
+	default = simple
