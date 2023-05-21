@@ -66,3 +66,5 @@
 	format = ssh
 [gpg "ssh"]
 	allowedSignersFile = ~/.git_allowed_signers
+[fetch]
+	prune = true
