@@ -46,5 +46,6 @@ require("lazy").setup({
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   "svermeulen/vim-cutlass",
   { 'Everblush/nvim', name = 'everblush' },
+  { 'SmiteshP/nvim-navic', dependencies = {'neovim/nvim-lspconfig'} },
 })
 
