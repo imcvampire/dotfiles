@@ -76,3 +76,10 @@ require'nvim-treesitter.configs'.setup {
 
 require("bufferline").setup{}
 
+local navic = require("nvim-navic")
+navic.setup {
+    lsp = {
+        auto_attach = true,
+    },
+}
+
