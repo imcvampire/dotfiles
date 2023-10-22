@@ -22,6 +22,7 @@
     pkgs.go
 
     # ide
+    pkgs.emacs29-macport
     pkgs.vscodium
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
