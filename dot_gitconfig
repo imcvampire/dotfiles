@@ -10,32 +10,6 @@
 	excludesfile = ~/.gitignore_global
 	editor = nvim
 
-[alias]
-  a = add
-  b = branch
-  c = commit
-  d = diff
-  f = fetch
-  g = grep
-  l = log
-  m = merge
-  p = push
-  pr = pull --rebase
-  r = remote
-  rb = rebase
-  rbc = rebase --continue
-  rbs = rebase --skip
-  w = whatchanged
-  graph = log -15 --branches --remotes --tags --graph --oneline --decorate=full HEAD
-  stt = status
-  co = checkout
-  unstage = reset HEAD --
-  last = log -1 HEAD
-  push-to-all-remotes = !git remote | xargs -I% -n1 git push %
-  uncommit = reset --soft HEAD~1
-  uncommit-hard = reset --hard HEAD~1
-  unadd = reset HEAD
-  unstage = reset HEAD
 [commit]
 	; gpgsign = true
 [merge]

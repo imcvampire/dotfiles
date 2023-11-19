@@ -9,6 +9,7 @@ zplug "oz/safe-paste"
 zplug "jreese/zsh-titles"
 zplug "wazum/zsh-directory-dot-expansion"
 zplug "hlissner/zsh-autopair", defer:2
+zplug "olets/zsh-abbr"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check; then
