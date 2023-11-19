@@ -61,6 +61,29 @@
     # EDITOR = "emacs";
   };
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager = {
+      enable = true;
+    };
+
+    direnv = {
+      enable = true;
+    };
+
+    k9s = {
+      enable = true;
+    };
+
+    ripgrep = {
+      enable = true;
+    };
+
+    less = {
+      enable = true;
+    };
+
+    lesspipe = {
+      enable = true;
+    };
+  };
 }
