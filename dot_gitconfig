@@ -5,13 +5,13 @@
 [user]
 	name = imcvampire
 	email = anhnq0@gmail.com
-	signingKey = "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBDaeXi2iMhCS7xnU2t/GoTVwdxyyqLFVCT+g2Mk41wNNhtJMRvMjwH/JaNjkkf7x54Jc0iozErcz6EbYZMIiigF1nkzvgBnzXcCN+Y/j5p5zY1tgpses8dGx4WMZ+Vdc3A=="
+	signingkey = /Users/nqa/.ssh/yubikey-640-piv.pub
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = nvim
 
 [commit]
-	; gpgsign = true
+	gpgsign = true
 [merge]
 	ff = false
 [log]
