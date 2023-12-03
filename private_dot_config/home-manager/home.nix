@@ -96,5 +96,7 @@
         italic-text = "always";
       };
     };
+
+    nix-index.enable = true;
   };
 }
