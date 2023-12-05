@@ -11,6 +11,7 @@
   home.packages = [
     pkgs.pgcli
     pkgs.asdf-vm
+    pkgs.comma
   ];
 
   home.file = {
