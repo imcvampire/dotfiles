@@ -9,6 +9,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   "neovim/nvim-lspconfig",
+  { "miikanissi/modus-themes.nvim", priority = 1000 },
   {
     'VonHeikemen/lsp-zero.nvim',
     dependencies = {
@@ -45,7 +46,6 @@ require("lazy").setup({
   { "akinsho/bufferline.nvim", version = "v3.*", dependencies = {'nvim-tree/nvim-web-devicons'} },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   "svermeulen/vim-cutlass",
-  { 'Everblush/nvim', name = 'everblush' },
   { 'SmiteshP/nvim-navic', dependencies = {'neovim/nvim-lspconfig'} },
 })
 

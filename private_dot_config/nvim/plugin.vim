@@ -12,7 +12,7 @@ nnoremap <leader>v <cmd>CHADopen<cr>
 
 " theme
 set termguicolors            " 24 bit color
-colorscheme everblush
+colorscheme modus
 
 " ale
 let g:ale_disable_lsp = 1

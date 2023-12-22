@@ -12,23 +12,20 @@
     pkgs.pgcli
     pkgs.asdf-vm
     pkgs.comma
+    pkgs.monaspace
+    (pkgs.nerdfonts.override {
+      fonts = ["NerdFontsSymbolsOnly"];
+    })
   ];
 
   home.file = {
   };
 
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/nqa/etc/profile.d/hm-session-vars.sh
-  #
-  # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+    PAGER = "less";
+    SHELL = "/bin/zsh";
   };
 
   programs = {
@@ -156,9 +153,6 @@
         zplug load
 
         # Aliases
-        alias _resource-zsh='source ~/.zshrc'
-        alias _resource-tmux='tmux source ~/.tmux.conf'
-
         alias top='htop'
         alias cal='cal -m -n 3'
         alias cat='bat'
@@ -182,19 +176,6 @@
         alias gfetchco='git-fetch-then-checkout'
         alias gsync='git-sync'
         alias grsorigin='git-reset-origin'
-
-        alias cmodx='sudo chmod +x '
-        alias cmod600='sudo chmod 600'
-        alias cmod700='sudo chmod 700'
-        alias cmod777='sudo chmod 777'
-        alias cmod744='sudo chmod 744'
-        alias cmod766='sudo chmod 766'
-        alias cmod644='sudo chmod 644'
-
-        alias bathelp='bat --plain --language=help'
-        help() {
-            "$@" --help 2>&1 | bathelp
-        }
 
         case `uname` in
           Darwin)
@@ -259,11 +240,6 @@
 
         export SSH_AUTH_SOCK="$(brew --prefix)/var/run/yubikey-agent.sock"
 
-        export EDITOR='nvim'
-        export VISUAL='nvim'
-        export PAGER='less'
-        export SHELL='/bin/zsh'
-
         export LANG='en_US.UTF-8'
 
         export GOPATH=''${HOME}/project/go
@@ -305,6 +281,8 @@
 
         # Added by OrbStack: command-line tools and integration
         source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+
+        . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
       '';
     };
 
