@@ -3,8 +3,7 @@
   pkgs,
   ...
 }: {
-  home.username = "nqa";
-  home.homeDirectory = "/Users/nqa";
+  home.homeDirectory = "/Users/${config.home.username}";
 
   home.stateVersion = "23.05";
 

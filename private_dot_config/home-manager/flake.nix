@@ -26,6 +26,7 @@
       inherit pkgs;
 
       modules = [
+        ./user.nix
         ./home.nix
         nix-index-database.hmModules.nix-index
       ];
