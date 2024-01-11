@@ -134,24 +134,6 @@
       initExtraBeforeCompInit = ''
         ZSH_AUTOSUGGEST_USE_ASYNC=true
 
-        # Plugins
-        export ZPLUG_HOME=/usr/local/opt/zplug
-        source $ZPLUG_HOME/init.zsh
-
-        zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-        zplug "oz/safe-paste"
-        zplug "jreese/zsh-titles"
-        zplug "wazum/zsh-directory-dot-expansion"
-        zplug "hlissner/zsh-autopair", defer:2
-        zplug "olets/zsh-abbr"
-
-        # Install plugins if there are plugins that have not been installed
-        if ! zplug check; then
-          zplug install
-        fi
-
-        zplug load
-
         # Aliases
         alias top='htop'
         alias cal='cal -m -n 3'
@@ -284,6 +266,26 @@
 
         . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
       '';
+      zplug = {
+        enable = true;
+        plugins = [
+          {
+            name = "hlissner/zsh-autopair";
+          }
+          {
+            name = "olets/zsh-abbr";
+          }
+          {
+            name = "oz/safe-paste";
+          }
+          {
+            name = "wazum/zsh-directory-dot-expansion";
+          }
+          {
+            name = "jreese/zsh-titles";
+          }
+        ];
+      };
     };
 
     direnv = {

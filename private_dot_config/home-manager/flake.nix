@@ -21,7 +21,7 @@
   }: let
     system = "x86_64-darwin";
     pkgs = nixpkgs.legacyPackages.${system};
-    userConfig = (import ./user.nix);
+    userConfig = import ./user.nix;
   in {
     homeConfigurations."${userConfig.home.username}" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
