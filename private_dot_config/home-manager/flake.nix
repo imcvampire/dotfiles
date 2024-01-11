@@ -21,12 +21,13 @@
   }: let
     system = "x86_64-darwin";
     pkgs = nixpkgs.legacyPackages.${system};
+    userConfig = (import ./user.nix);
   in {
-    homeConfigurations."nqa" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."${userConfig.home.username}" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
       modules = [
-        ./user.nix
+        userConfig
         ./home.nix
         nix-index-database.hmModules.nix-index
       ];
