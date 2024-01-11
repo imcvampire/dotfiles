@@ -8,6 +8,7 @@
   home.stateVersion = "23.05";
 
   home.packages = [
+    pkgs.coreutils
     pkgs.pgcli
     pkgs.asdf-vm
     pkgs.comma
@@ -310,6 +311,13 @@
       config = {
         theme = "gruvbox-dark";
         italic-text = "always";
+      };
+    };
+
+    atuin = {
+      enable = true;
+      settings = {
+        enter_accept = true;
       };
     };
 
