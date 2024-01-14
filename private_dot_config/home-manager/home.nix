@@ -1,19 +1,27 @@
 {
   config,
   pkgs,
+  inputs,
+  system,
   ...
 }: {
   home.homeDirectory = "/Users/${config.home.username}";
 
   home.stateVersion = "23.05";
 
-  home.packages = [
-    pkgs.coreutils
-    pkgs.pgcli
-    pkgs.asdf-vm
-    pkgs.comma
-    pkgs.monaspace
-    (pkgs.nerdfonts.override {
+  home.packages = with pkgs; [
+    coreutils
+
+    mosh
+
+    pgcli
+
+    asdf-vm
+
+    comma
+
+    monaspace
+    (nerdfonts.override {
       fonts = ["NerdFontsSymbolsOnly"];
     })
   ];

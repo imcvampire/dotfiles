@@ -31,8 +31,12 @@
         ./home.nix
         nix-index-database.hmModules.nix-index
       ];
+
+      extraSpecialArgs = {
+        inherit system;
+      };
     };
 
-    formatter.x86_64-darwin = nixpkgs.legacyPackages.x86_64-darwin.alejandra;
+    formatter."${system}" = nixpkgs.legacyPackages.${system}.alejandra;
   };
 }
