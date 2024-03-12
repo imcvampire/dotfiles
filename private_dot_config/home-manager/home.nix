@@ -14,11 +14,24 @@
 
     mosh
 
+    poetry
+    pipx
+
     pgcli
 
     asdf-vm
 
+    just
+    tealdeer
+
     comma
+
+    firebase-tools
+    flyctl
+
+    ansible
+
+    yubikey-manager
 
     monaspace
     (nerdfonts.override {

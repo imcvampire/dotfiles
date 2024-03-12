@@ -14,6 +14,7 @@
 	gpgsign = true
 [merge]
 	ff = false
+	conflictstyle = zdiff3
 [log]
 	date = auto:human
 [filter "lfs"]
@@ -26,6 +27,7 @@
   colorMoved = default
   external = difft
   tool = difftastic
+	algorithm = histogram
 
 [difftool]
   prompt = false

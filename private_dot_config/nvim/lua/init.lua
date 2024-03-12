@@ -9,7 +9,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   "neovim/nvim-lspconfig",
-  { "miikanissi/modus-themes.nvim", priority = 1000 },
+  { "Abstract-IDE/Abstract-cs", priority = 1000 },
   {
     'VonHeikemen/lsp-zero.nvim',
     dependencies = {
