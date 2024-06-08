@@ -12,19 +12,17 @@
   home.packages = with pkgs; [
     coreutils
 
-    mosh
-
     poetry
     pipx
 
     pgcli
 
-    asdf-vm
-
+    mise
+    # devenv
     just
     tealdeer
-
-    comma
+    mosh
+    gh
 
     firebase-tools
     flyctl
@@ -38,9 +36,6 @@
       fonts = ["NerdFontsSymbolsOnly"];
     })
   ];
-
-  home.file = {
-  };
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -160,8 +155,6 @@
         alias cal='cal -m -n 3'
         alias cat='bat'
         alias vim='nvim'
-        alias ls='lsd --group-dirs=first'
-        alias la='lsd -al --group-dirs=first'
         alias gco='git checkout'
         alias gcob='git checkout -b'
         alias gcommit='git commit -am'
@@ -190,6 +183,8 @@
 
         [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
         eval "$(jump shell)"
+        eval "$(gh copilot alias -- zsh)"
+        eval "$(mise activate zsh)"
       '';
       envExtra = ''
         # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
@@ -284,8 +279,6 @@
 
         # Added by OrbStack: command-line tools and integration
         source ~/.orbstack/shell/init.zsh 2>/dev/null || :
-
-        . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
       '';
       zplug = {
         enable = true;
@@ -341,6 +334,16 @@
       enable = true;
       settings = {
         enter_accept = true;
+      };
+    };
+
+    lsd = {
+      enable = true;
+      enableAliases = true;
+      settings = {
+        sorting = {
+          dir-grouping = "first";
+        };
       };
     };
 
