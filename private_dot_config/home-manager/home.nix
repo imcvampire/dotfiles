@@ -5,13 +5,13 @@
   system,
   ...
 }: {
+  home.enableNixpkgsReleaseCheck = false;
+
   home.homeDirectory = "/Users/${config.home.username}";
 
   home.stateVersion = "23.05";
 
   home.packages = with pkgs; [
-    loopwm
-
     coreutils
 
     poetry
