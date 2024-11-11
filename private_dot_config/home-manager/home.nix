@@ -12,11 +12,15 @@
   home.stateVersion = "23.05";
 
   home.packages = with pkgs; [
+    cachix # to store cache binaries on cachix.org
+    nix-prefetch-git # to get git signatures for fetchFromGit
+
     coreutils
 
     poetry
     pipx
 
+    postgresql
     pgcli
 
     mise
@@ -183,7 +187,6 @@
           ;;
         esac
 
-        [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
         eval "$(jump shell)"
         eval "$(gh copilot alias -- zsh)"
         eval "$(mise activate zsh)"
@@ -304,6 +307,23 @@
       };
     };
 
+    kitty = {
+      enable = true;
+      settings = {
+        confirm_os_window_close = 0;
+        dynamic_background_opacity = true;
+        enable_audio_bell = false;
+        mouse_hide_wait = "-1.0";
+        tab_bar_style = "powerline";
+        macos_quit_when_last_window_closed = "yes";
+      };
+      font = {
+        size = 19;
+        package = pkgs.monaspace;
+        name = "Monaspace Neon Var Light";
+      };
+    };
+
     direnv = {
       enable = true;
     };
@@ -332,12 +352,12 @@
       };
     };
 
-    atuin = {
-      enable = true;
-      settings = {
-        enter_accept = true;
-      };
-    };
+    # atuin = {
+    #   enable = true;
+    #   settings = {
+    #     enter_accept = true;
+    #   };
+    # };
 
     lsd = {
       enable = true;
@@ -349,6 +369,44 @@
       };
     };
 
+    fzf = {
+      enable = true;
+    };
+
     nix-index.enable = true;
+  };
+
+  editorconfig = {
+    enable = true;
+    settings = {
+      "*" = {
+        indent_style = "space";
+        end_of_line = "lf";
+        trim_trailing_whitespace = true;
+        insert_final_newline = true;
+        indent_size = 2;
+      };
+
+      "*.go" = {
+        indent_style = "tab";
+        indent_size = 4;
+      };
+
+      "*.{md,mdx}" = {
+        trim_trailing_whitespace = false;
+      };
+
+      "*.{cmd,bat}" = {
+        end_of_line = "crlf";
+      };
+
+      "Makefile" = {
+        indent_style = "tab";
+      };
+
+      "*.{rs,py}" = {
+        indent_size = 4;
+      };
+    };
   };
 }
