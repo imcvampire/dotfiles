@@ -36,9 +36,7 @@
     yubikey-manager
 
     monaspace
-    (nerdfonts.override {
-      fonts = ["NerdFontsSymbolsOnly"];
-    })
+    nerd-fonts.symbols-only
   ];
 
   home.sessionVariables = {

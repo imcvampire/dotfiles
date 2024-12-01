@@ -24,17 +24,19 @@
     mac-app-util,
     ...
   }: let
-    system = "x86_64-darwin";
-    pkgs = nixpkgs.legacyPackages.${system};
     userConfig = import ./user.nix;
+    system = userConfig.system;
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
-    homeConfigurations."${userConfig.home.username}" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."${userConfig.username}" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
       modules = [
         mac-app-util.homeManagerModules.default
-        userConfig
         # stylix.homeManagerModules.stylix
+        {
+          home.username = "${userConfig.username}";
+        }
         ./home.nix
         nix-index-database.hmModules.nix-index
         {programs.nix-index-database.comma.enable = true;}
