@@ -23,12 +23,10 @@
     postgresql
     pgcli
 
-    mise
     # devenv
     just
     tealdeer
     mosh
-    gh
 
     firebase-tools
     flyctl
@@ -188,8 +186,6 @@
         esac
 
         eval "$(jump shell)"
-        eval "$(gh copilot alias -- zsh)"
-        eval "$(mise activate zsh)"
       '';
       envExtra = ''
         # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
@@ -316,6 +312,7 @@
         mouse_hide_wait = "-1.0";
         tab_bar_style = "powerline";
         macos_quit_when_last_window_closed = "yes";
+        enabled_layouts = "tall:bias=50;full_size=1;mirrored=false";
       };
       font = {
         size = 19;
@@ -329,6 +326,10 @@
     };
 
     k9s = {
+      enable = true;
+    };
+
+    mise = {
       enable = true;
     };
 
@@ -352,12 +353,12 @@
       };
     };
 
-    # atuin = {
-    #   enable = true;
-    #   settings = {
-    #     enter_accept = true;
-    #   };
-    # };
+    atuin = {
+      enable = true;
+      settings = {
+        enter_accept = true;
+      };
+    };
 
     lsd = {
       enable = true;
@@ -408,5 +409,15 @@
         indent_size = 4;
       };
     };
+  };
+
+  targets.darwin = {
+    defaults = {
+      "com.apple.desktopservices" = {
+        DSDontWriteNetworkStores = true;
+        DSDontWriteUSBStores = true;
+      };
+    };
+    search = "DuckDuckGo";
   };
 }
