@@ -1,16 +1,3 @@
-local lsp = require('lsp-zero')
-lsp.preset('recommended')
-
-lsp.setup_nvim_cmp({
-  sources = {
-    {name = 'treesitter'},
-    {name = 'path'},
-    {name = 'nvim_lsp', keyword_length = 3},
-    {name = 'buffer', keyword_length = 3},
-    {name = 'luasnip', keyword_length = 2},
-  }
-})
-
 local cmp = require'cmp'
 
 -- Set configuration for specific filetype.
@@ -37,9 +24,6 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
-
-lsp.nvim_workspace()
-lsp.setup()
 
 local saga = require 'lspsaga'
 
