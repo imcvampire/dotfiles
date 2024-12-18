@@ -5,7 +5,8 @@ let g:indentLine_concealcursor = "nv"
 
 " CHADtree
 let g:chadtree_settings = {
-  \  'ignore.name_exact': [".DS_Store", ".directory", "thumbs.db", ".git", ".idea"]
+  \  'ignore.name_exact': [".DS_Store", "thumbs.db", ".git", ".idea"],
+  \  'view.width': 30
   \ }
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | CHADopen
 nnoremap <leader>v <cmd>CHADopen<cr>
