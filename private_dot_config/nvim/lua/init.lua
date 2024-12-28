@@ -16,69 +16,43 @@ require("lazy").setup({
     opts = {},
   },
 
-  -- Autocompletion
-  {
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
-    config = function()
-      local cmp = require('cmp')
-
-      cmp.setup({
-        sources = {
-          {name = 'nvim_lsp'},
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
-        }),
-        snippet = {
-          expand = function(args)
-            vim.snippet.expand(args.body)
-          end,
-        },
-      })
-    end
-  },
-
   -- LSP
   {
     'neovim/nvim-lspconfig',
     cmd = {'LspInfo', 'LspInstall', 'LspStart'},
     event = {'BufReadPre', 'BufNewFile'},
     dependencies = {
-      {'hrsh7th/cmp-nvim-lsp'},
       -- LSP Support
       {'williamboman/mason.nvim'},
       {'williamboman/mason-lspconfig.nvim'},
 
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-path'},
-      {'saadparwaiz1/cmp_luasnip'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-nvim-lua'},
+      -- main one
+      { "ms-jpq/coq_nvim", branch = "coq" },
 
-      -- Snippets
-      {'L3MON4D3/LuaSnip'},
-      {'rafamadriz/friendly-snippets'},
+      -- 9000+ Snippets
+      { "ms-jpq/coq.artifacts", branch = "artifacts" },
+
+      -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+      -- Need to **configure separately**
+      { 'ms-jpq/coq.thirdparty', branch = "3p" }
+      -- - shell repl
+      -- - nvim lua api
+      -- - scientific calculator
+      -- - comment banner
+      -- - etc
     },
     init = function()
       -- Reserve a space in the gutter
       -- This will avoid an annoying layout shift in the screen
       vim.opt.signcolumn = 'yes'
+
+      vim.g.coq_settings = {
+        auto_start = true, -- if you want to start COQ at startup
+        -- Your COQ settings here
+      }
     end,
     config = function()
       local lsp_defaults = require('lspconfig').util.default_config
-
-      -- Add cmp_nvim_lsp capabilities settings to lspconfig
-      -- This should be executed before you configure any language server
-      lsp_defaults.capabilities = vim.tbl_deep_extend(
-        'force',
-        lsp_defaults.capabilities,
-        require('cmp_nvim_lsp').default_capabilities()
-      )
 
       -- LspAttach is where you enable features that only work
       -- if there is a language server active in the file
@@ -106,14 +80,23 @@ require("lazy").setup({
           -- this first function is the "default handler"
           -- it applies to every language server without a "custom handler"
           function(server_name)
-            require('lspconfig')[server_name].setup({})
+            local coq = require("coq")
+            require('lspconfig')[server_name].setup(coq.lsp_ensure_capabilities({}))
           end,
         }
       })
     end
   },
-  "glepnir/lspsaga.nvim",
-  "ray-x/cmp-treesitter",
+  {
+    'nvimdev/lspsaga.nvim',
+    config = function()
+        require('lspsaga').setup({})
+    end,
+    dependencies = {
+        'nvim-treesitter/nvim-treesitter', -- optional
+        'nvim-tree/nvim-web-devicons',     -- optional
+    }
+  },
   "Yggdroot/indentLine",
   "editorconfig/editorconfig-vim",
   "ConradIrwin/vim-bracketed-paste",

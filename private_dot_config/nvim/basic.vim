@@ -96,10 +96,11 @@ if has("gui_macvim")
 endif
 
 
-" Add a bit extra margin to the left
 set foldcolumn=1
 
-set number
+set number relativenumber
+autocmd InsertEnter * : set norelativenumber
+autocmd InsertLeave * : set relativenumber
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts

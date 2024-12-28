@@ -411,9 +411,22 @@
 
   targets.darwin = {
     defaults = {
+      NSGlobalDomain = {
+        AppleLanguages = ["en" "vi"];
+        AppleLocale = "en_UK";
+        AppleMetricUnits = true;
+      };
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;
         DSDontWriteUSBStores = true;
+      };
+      "com.apple.finder" = {
+        AppleShowAllFiles = true;
+        FXRemoveOldTrashItems = true;
+        ShowPathBar = true;
+      };
+      "com.apple.menuextra.clock" = {
+        Show24Hour = false;
       };
     };
     search = "DuckDuckGo";
