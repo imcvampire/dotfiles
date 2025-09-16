@@ -5,13 +5,15 @@
 [user]
 	name = imcvampire
 	email = anhnq0@gmail.com
-	signingkey = /Users/nqa/.ssh/yubikey-640-piv.pub
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIcAjdvzjDNtDLqo1OMNT6CzAAWgiEaX86bsQ4ITZft9
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = nvim
-
 [commit]
-	gpgsign = true
+  gpgsign = true
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+	allowedSignersFile = ~/.git_allowed_signers
 [merge]
 	ff = false
 	conflictstyle = zdiff3
@@ -40,9 +42,11 @@
   autostash = true
 [gpg]
 	format = ssh
-[gpg "ssh"]
-	allowedSignersFile = ~/.git_allowed_signers
 [fetch]
 	prune = true
 [push]
 	default = simple
+[url "git@github.com:"]
+  insteadOf = https://github.com/
+[includeIf "gitdir:~/project/iceye/"]
+  path = ~/project/iceye/.gitconfig

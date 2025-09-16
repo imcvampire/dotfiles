@@ -26,7 +26,10 @@
   }: let
     userConfig = import ./user.nix;
     system = userConfig.system;
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = import nixpkgs {
+      system = system;
+      config.allowUnfree = true;
+    };
   in {
     homeConfigurations."${userConfig.username}" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
@@ -38,7 +41,7 @@
           home.username = "${userConfig.username}";
         }
         ./home.nix
-        nix-index-database.hmModules.nix-index
+        nix-index-database.homeModules.nix-index
         {programs.nix-index-database.comma.enable = true;}
       ];
 

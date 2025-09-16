@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   system,
+  lib,
   ...
 }: {
   home.enableNixpkgsReleaseCheck = false;
@@ -17,7 +18,6 @@
 
     coreutils
 
-    poetry
     pipx
 
     postgresql
@@ -28,14 +28,21 @@
     tealdeer
     mosh
 
-    firebase-tools
+    xan
+
+    aider-chat
+
+    # firebase-tools
     flyctl
 
-    ansible
+    # ansible
+
+    localsend
 
     yubikey-manager
 
     monaspace
+    atkinson-hyperlegible-next
     nerd-fonts.symbols-only
   ];
 
@@ -53,138 +60,154 @@
 
     zsh = {
       enable = true;
-      initExtraFirst = ''
-        # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
+      enableVteIntegration = true;
 
-        # Periodic auto-update on Zsh startup: 'ask' or 'no'.
-        # You can manually run `z4h update` to update everything.
-        zstyle ':z4h:' auto-update      'no'
-        # Ask whether to auto-update this often; has no effect if auto-update is 'no'.
-        zstyle ':z4h:' auto-update-days '28'
+      initContent = let
+        zshConfigEarlyInit = lib.mkOrder 500 ''
+          # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-        # Move prompt to the bottom when zsh starts and on Ctrl+L.
-        zstyle ':z4h:' prompt-at-bottom 'yes'
+          # Periodic auto-update on Zsh startup: 'ask' or 'no'.
+          # You can manually run `z4h update` to update everything.
+          zstyle ':z4h:' auto-update      'no'
+          # Ask whether to auto-update this often; has no effect if auto-update is 'no'.
+          zstyle ':z4h:' auto-update-days '28'
 
-        # Keyboard type: 'mac' or 'pc'.
-        zstyle ':z4h:bindkey' keyboard  'mac'
+          # Move prompt to the bottom when zsh starts and on Ctrl+L.
+          zstyle ':z4h:' prompt-at-bottom 'yes'
 
-        # Mark up shell's output with semantic information.
-        zstyle ':z4h:' term-shell-integration 'yes'
+          # Keyboard type: 'mac' or 'pc'.
+          zstyle ':z4h:bindkey' keyboard  'mac'
 
-        zstyle ':z4h:' iterm2-integration 'no'
+          # Mark up shell's output with semantic information.
+          zstyle ':z4h:' term-shell-integration 'yes'
 
-        zstyle ':z4h:' start-tmux 'no'
+          zstyle ':z4h:' iterm2-integration 'no'
 
-        # Right-arrow key accepts one character ('partial-accept') from
-        # command autosuggestions or the whole thing ('accept')?
-        zstyle ':z4h:autosuggestions' forward-char 'accept'
+          zstyle ':z4h:' start-tmux 'no'
 
-        # Recursively traverse directories when TAB-completing files.
-        zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
+          # Right-arrow key accepts one character ('partial-accept') from
+          # command autosuggestions or the whole thing ('accept')?
+          zstyle ':z4h:autosuggestions' forward-char 'accept'
 
-        # Enable direnv to automatically source .envrc files.
-        zstyle ':z4h:direnv'         enable 'yes'
-        # Show "loading" and "unloading" notifications from direnv.
-        zstyle ':z4h:direnv:success' notify 'yes'
+          # Recursively traverse directories when TAB-completing files.
+          zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
 
-        # Enable ('yes') or disable ('no') automatic teleportation of z4h over
-        # SSH when connecting to these hosts.
-        # zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
-        # zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
-        # The default value if none of the overrides above match the hostname.
-        zstyle ':z4h:ssh:*'                   enable 'no'
+          # Enable direnv to automatically source .envrc files.
+          zstyle ':z4h:direnv'         enable 'yes'
+          # Show "loading" and "unloading" notifications from direnv.
+          zstyle ':z4h:direnv:success' notify 'yes'
 
-        # Send these files over to the remote host when connecting over SSH to the
-        # enabled hosts.
-        # zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
+          # Enable ('yes') or disable ('no') automatic teleportation of z4h over
+          # SSH when connecting to these hosts.
+          # zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
+          # zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
+          # The default value if none of the overrides above match the hostname.
+          zstyle ':z4h:ssh:*'                   enable 'no'
 
-        # Clone additional Git repositories from GitHub.
-        #
-        # This doesn't do anything apart from cloning the repository and keeping it
-        # up-to-date. Cloned files can be used after `z4h init`. This is just an
-        # example. If you don't plan to use Oh My Zsh, delete this line.
-        # z4h install ohmyzsh/ohmyzsh || return
+          # Send these files over to the remote host when connecting over SSH to the
+          # enabled hosts.
+          # zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 
-        # Install or update core components (fzf, zsh-autosuggestions, etc.) and
-        # initialize Zsh. After this point console I/O is unavailable until Zsh
-        # is fully initialized. Everything that requires user interaction or can
-        # perform network I/O must be done above. Everything else is best done below.
-        z4h init || return
+          # Clone additional Git repositories from GitHub.
+          #
+          # This doesn't do anything apart from cloning the repository and keeping it
+          # up-to-date. Cloned files can be used after `z4h init`. This is just an
+          # example. If you don't plan to use Oh My Zsh, delete this line.
+          # z4h install ohmyzsh/ohmyzsh || return
 
-        # Extend PATH.
-        path=(~/bin $path)
+          z4h install hlissner/zsh-autopair || return
+          z4h install oz/safe-paste || return
+          z4h install jreese/zsh-titles || return
 
-        # Export environment variables.
-        export GPG_TTY=$TTY
+          # Install or update core components (fzf, zsh-autosuggestions, etc.) and
+          # initialize Zsh. After this point console I/O is unavailable until Zsh
+          # is fully initialized. Everything that requires user interaction or can
+          # perform network I/O must be done above. Everything else is best done below.
+          z4h init || return
 
-        # Source additional local files if they exist.
-        z4h source ~/.env.zsh
+          # Extend PATH.
+          path=(~/bin $path)
 
-        # Use additional Git repositories pulled in with `z4h install`.
-        #
-        # This is just an example that you should delete. It does nothing useful.
-        # z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
-        # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
+          # Export environment variables.
+          export GPG_TTY=$TTY
 
-        # Define key bindings.
-        z4h bindkey undo Ctrl+/   Shift+Tab # undo the last command line change
-        z4h bindkey redo Option+/           # redo the last undone command line change
+          # Source additional local files if they exist.
+          z4h source ~/.env.zsh
 
-        z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
-        z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
-        z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
-        z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
+          # Use additional Git repositories pulled in with `z4h install`.
+          #
+          # This is just an example that you should delete. It does nothing useful.
+          # z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
+          # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
-        # Autoload functions.
-        autoload -Uz zmv
+          # Define key bindings.
+          z4h bindkey undo Ctrl+/   Shift+Tab # undo the last command line change
+          z4h bindkey redo Option+/           # redo the last undone command line change
 
-        # Define functions and completions.
-        function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
-        compdef _directories md
+          z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
+          z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
+          z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
+          z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 
-        # Define named directories: ~w <=> Windows home directory on WSL.
-        [[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
+          # Autoload functions.
+          autoload -Uz zmv
 
-        # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
-        setopt glob_dots     # no special treatment for file names with a leading dot
-        setopt no_auto_menu  # require an extra TAB press to open the completion menu
-      '';
-      initExtraBeforeCompInit = ''
-        ZSH_AUTOSUGGEST_USE_ASYNC=true
+          # Define functions and completions.
+          function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+          compdef _directories md
 
-        # Aliases
-        alias top='htop'
-        alias cal='cal -m -n 3'
-        alias cat='bat'
-        alias vim='nvim'
-        alias gco='git checkout'
-        alias gcob='git checkout -b'
-        alias gcommit='git commit -am'
-        alias gfix='git add . && git fix'
-        alias gfeat='git add . && git feat'
-        alias gdocs='git add . && git docs'
-        alias gchore='git add . && git chore'
-        alias grefact='git add . && git refact'
-        alias gstyle='git add . && git style'
-        alias gtest='git add . && git test'
-        alias gpush='git push origin'
-        alias gpull='git pull --no-ff origin'
-        alias gbuild='git add . && git build'
-        alias glog='git log --pretty=short'
-        alias gfetchco='git-fetch-then-checkout'
-        alias gsync='git-sync'
-        alias grsorigin='git-reset-origin'
+          # Define named directories: ~w <=> Windows home directory on WSL.
+          [[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
 
-        case `uname` in
-          Darwin)
-            if type brew &>/dev/null; then
-              fpath+=($(brew --prefix)/share/zsh/site-functions)
-            fi
-          ;;
-        esac
+          # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
+          setopt glob_dots     # no special treatment for file names with a leading dot
+          setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
-        eval "$(jump shell)"
-      '';
+          z4h load hlissner/zsh-autopair
+          z4h load oz/safe-paste
+          z4h load jreese/zsh-titles
+
+          ZSH_AUTOSUGGEST_USE_ASYNC=true
+
+          # Aliases
+          alias top='htop'
+          alias cal='cal -m -n 3'
+          alias cat='bat'
+          alias vim='nvim'
+          alias gco='git checkout'
+          alias gcob='git checkout -b'
+          alias gcommit='git commit -am'
+          alias gfix='git add . && git fix'
+          alias gfeat='git add . && git feat'
+          alias gdocs='git add . && git docs'
+          alias gchore='git add . && git chore'
+          alias grefact='git add . && git refact'
+          alias gstyle='git add . && git style'
+          alias gtest='git add . && git test'
+          alias gpush='git push origin'
+          alias gpull='git pull --no-ff origin'
+          alias gbuild='git add . && git build'
+          alias glog='git log --pretty=short'
+          alias gfetchco='git-fetch-then-checkout'
+          alias gsync='git-sync'
+          alias grsorigin='git-reset-origin'
+
+          case `uname` in
+            Darwin)
+              if type brew &>/dev/null; then
+                fpath+=($(brew --prefix)/share/zsh/site-functions)
+              fi
+            ;;
+          esac
+
+          eval "$(jump shell)"
+        '';
+        zshConfig =
+          lib.mkOrder 1000 ''
+          '';
+      in
+        lib.mkMerge [zshConfigEarlyInit zshConfig];
+
       envExtra = ''
         # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
         #
@@ -227,6 +250,8 @@
           fi
           mv -- "$Z4H"/z4h.zsh.$$ "$Z4H"/z4h.zsh || return
         fi
+
+        ABBR_SET_EXPANSION_CURSOR=1
 
         . "$Z4H"/z4h.zsh || return
 
@@ -279,43 +304,41 @@
         # Added by OrbStack: command-line tools and integration
         source ~/.orbstack/shell/init.zsh 2>/dev/null || :
       '';
-      zplug = {
+      dirHashes = {
+        docs = "$HOME/Documents";
+        vids = "$HOME/Videos";
+        dl = "$HOME/Downloads";
+      };
+      zsh-abbr = {
         enable = true;
-        plugins = [
-          {
-            name = "hlissner/zsh-autopair";
-          }
-          {
-            name = "olets/zsh-abbr";
-          }
-          {
-            name = "oz/safe-paste";
-          }
-          {
-            name = "wazum/zsh-directory-dot-expansion";
-          }
-          {
-            name = "jreese/zsh-titles";
-          }
-        ];
+        abbreviations = {
+          "git a" = "git add";
+          "git b" = "git branch";
+          "git c" = "git commit";
+          "git co" = "git checkout";
+          "git d" = "git diff";
+          "git f" = "git fetch";
+          "git g" = "git grep";
+          "git graph" = "git log -15 --branches --remotes --tags --graph --oneline --decorate=full HEAD";
+          "git l" = "git log";
+          "git last" = "git log -1 HEAD";
+          "git m" = "git merge";
+          "git p" = "git push";
+          "git pr" = "git pull --rebase";
+          "git r" = "git remote";
+          "git rb" = "git rebase";
+          "git rbc" = "git rebase --continue";
+          "git rbs" = "git rebase --skip";
+          "git stt" = "git status";
+          "git unadd" = "git reset HEAD";
+          "git uncommit" = "git reset --soft HEAD~1";
+          "git uncommit-hard" = "git reset --hard HEAD~1";
+          "git unstage" = "git reset HEAD";
+          "git w" = "git whatchanged";
+        };
       };
-    };
-
-    kitty = {
-      enable = true;
-      settings = {
-        confirm_os_window_close = 0;
-        dynamic_background_opacity = true;
-        enable_audio_bell = false;
-        mouse_hide_wait = "-1.0";
-        tab_bar_style = "powerline";
-        macos_quit_when_last_window_closed = "yes";
-        enabled_layouts = "tall:bias=50;full_size=1;mirrored=false";
-      };
-      font = {
-        size = 19;
-        package = pkgs.monaspace;
-        name = "Monaspace Neon Var Light";
+      history = {
+        append = true;
       };
     };
 
@@ -360,7 +383,6 @@
 
     lsd = {
       enable = true;
-      enableAliases = true;
       settings = {
         sorting = {
           dir-grouping = "first";
