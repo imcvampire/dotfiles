@@ -14,5 +14,6 @@ brew "yubikey-agent", restart_service: true
 brew "zsh"
 brew "pirj/noclamshell/noclamshell"
 brew "theseal/ssh-askpass/ssh-askpass"
+cask "ghostty"
 cask "android-platform-tools"
 cask "finicky"
