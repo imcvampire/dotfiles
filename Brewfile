@@ -10,13 +10,10 @@ brew "git-lfs"
 brew "jump"
 brew "libyaml"
 brew "neovim"
-brew "yubikey-agent", restart_service: true
 brew "zsh"
 brew "pirj/noclamshell/noclamshell"
 brew "theseal/ssh-askpass/ssh-askpass"
 cask "ghostty"
-cask "android-platform-tools"
-cask "finicky"
 
 vscode "anysphere.cursorpyright"
 vscode "bradlc.vscode-tailwindcss"
