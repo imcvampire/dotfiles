@@ -20,7 +20,6 @@
 
     pipx
 
-    postgresql
     pgcli
 
     # devenv
@@ -30,16 +29,28 @@
 
     xan
 
-    aider-chat
+    kubecolor
 
     # firebase-tools
-    flyctl
+    # flyctl
 
     # ansible
 
     localsend
 
     yubikey-manager
+
+    difftastic
+    git
+    git-lfs
+    jump
+    neovim
+    pnpm
+    # altair
+    # android-tools
+    # vagrant
+
+    awscli
 
     monaspace
     atkinson-hyperlegible-next
@@ -201,6 +212,8 @@
           esac
 
           eval "$(jump shell)"
+
+          compdef kubecolor=kubectl
         '';
         zshConfig =
           lib.mkOrder 1000 ''
@@ -222,6 +235,10 @@
           # in ~/.zshenv (see comments at the top!), do it here:
           #
           #   export GOPATH=$HOME/go
+
+          export SSH_SK_PROVIDER=/usr/local/lib/sk-libfido2.dylib
+          ABBR_SET_EXPANSION_CURSOR=1
+
           #
           # Do not change anything else in this file.
 
@@ -251,16 +268,12 @@
           mv -- "$Z4H"/z4h.zsh.$$ "$Z4H"/z4h.zsh || return
         fi
 
-        ABBR_SET_EXPANSION_CURSOR=1
-
         . "$Z4H"/z4h.zsh || return
 
         setopt rcs
       '';
       profileExtra = ''
         [ -f ~/.profile ] && source ~/.profile
-
-        export SSH_AUTH_SOCK="$(brew --prefix)/var/run/yubikey-agent.sock"
 
         export LANG='en_US.UTF-8'
 
@@ -335,6 +348,8 @@
           "git uncommit-hard" = "git reset --hard HEAD~1";
           "git unstage" = "git reset HEAD";
           "git w" = "git whatchanged";
+
+          "kubectl" = "kubecolor";
         };
       };
       history = {
@@ -436,19 +451,10 @@
       NSGlobalDomain = {
         AppleLanguages = ["en" "vi"];
         AppleLocale = "en_UK";
-        AppleMetricUnits = true;
       };
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;
         DSDontWriteUSBStores = true;
-      };
-      "com.apple.finder" = {
-        AppleShowAllFiles = true;
-        FXRemoveOldTrashItems = true;
-        ShowPathBar = true;
-      };
-      "com.apple.menuextra.clock" = {
-        Show24Hour = false;
       };
     };
     search = "DuckDuckGo";

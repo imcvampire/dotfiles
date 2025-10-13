@@ -1,8 +1,14 @@
 {
-  description = "Home Manager configuration of nqa";
+  description = "nix-darwin configuration with Home Manager";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,43 +19,54 @@
 
     # stylix.url = "github:danth/stylix";
 
-    mac-app-util.url = "github:hraban/mac-app-util";
+    # mac-app-util.url = "github:hraban/mac-app-util";
   };
 
   outputs = {
+    self,
     nixpkgs,
+    nix-darwin,
     home-manager,
     nix-index-database,
     # stylix,
-    mac-app-util,
+    # mac-app-util,
     ...
   }: let
     userConfig = import ./user.nix;
     system = userConfig.system;
-    pkgs = import nixpkgs {
-      system = system;
-      config.allowUnfree = true;
-    };
+    username = userConfig.username;
   in {
-    homeConfigurations."${userConfig.username}" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
+    # nix-darwin configuration
+    darwinConfigurations."${userConfig.hostname}" = nix-darwin.lib.darwinSystem {
       modules = [
-        mac-app-util.homeManagerModules.default
-        # stylix.homeManagerModules.stylix
         {
-          home.username = "${userConfig.username}";
+          nixpkgs.hostPlatform = system;
         }
-        ./home.nix
-        nix-index-database.homeModules.nix-index
-        {programs.nix-index-database.comma.enable = true;}
+        ./darwin-configuration.nix
+
+        # Integrate home-manager as a nix-darwin module
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.${username} = import ./home.nix;
+          home-manager.extraSpecialArgs = {
+            inherit system;
+          };
+          home-manager.sharedModules = [
+            # mac-app-util.homeManagerModules.default
+            # stylix.homeManagerModules.stylix
+            nix-index-database.homeModules.nix-index
+            {programs.nix-index-database.comma.enable = true;}
+          ];
+        }
       ];
 
-      extraSpecialArgs = {
-        inherit system;
+      specialArgs = {
+        inherit self userConfig;
       };
     };
 
-    formatter."${system}" = nixpkgs.legacyPackages.${system}.alejandra;
+    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
   };
 }

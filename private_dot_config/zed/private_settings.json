@@ -7,6 +7,14 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_servers": {},
+  "context_servers": {
+    "mcp-server-github": {
+      "source": "extension",
+      "enabled": true,
+      "settings": {}
+    }
+  },
   "icon_theme": "Catppuccin Mocha",
   "collaboration_panel": {
     "dock": "right"
@@ -18,8 +26,8 @@
     },
     "model_parameters": [],
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "gemini-2.5-pro"
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-thinking"
     }
   },
   "features": {
@@ -38,5 +46,18 @@
     "mode": "system",
     "light": "One Light",
     "dark": "Catppuccin Mocha"
+  },
+  "minimap": {
+    "show": "auto"
+  },
+  "inlay_hints": {
+    "enabled": true
+  },
+  "diagnostics_max_severity": "error",
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+      "max_severity": null
+    }
   }
 }
