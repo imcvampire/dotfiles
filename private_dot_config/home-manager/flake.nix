@@ -36,7 +36,6 @@
     system = userConfig.system;
     username = userConfig.username;
   in {
-    # nix-darwin configuration
     darwinConfigurations."${userConfig.hostname}" = nix-darwin.lib.darwinSystem {
       modules = [
         {
@@ -44,7 +43,6 @@
         }
         ./darwin-configuration.nix
 
-        # Integrate home-manager as a nix-darwin module
         home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;

@@ -17,6 +17,9 @@
     nix-prefetch-git # to get git signatures for fetchFromGit
 
     coreutils
+    gettext
+
+    chezmoi
 
     pipx
 
@@ -49,8 +52,9 @@
     # altair
     # android-tools
     # vagrant
+    kubectl
 
-    awscli
+    awscli2
 
     monaspace
     atkinson-hyperlegible-next
@@ -202,6 +206,8 @@
           alias gfetchco='git-fetch-then-checkout'
           alias gsync='git-sync'
           alias grsorigin='git-reset-origin'
+
+          alias docker='podman'
 
           case `uname` in
             Darwin)
