@@ -5,14 +5,13 @@
 [user]
 	name = imcvampire
 	email = anhnq0@gmail.com
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIcAjdvzjDNtDLqo1OMNT6CzAAWgiEaX86bsQ4ITZft9
+	signingkey = /Users/quoc/.ssh/id_ed25519.pub
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = nvim
 [commit]
   gpgsign = true
 [gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 	allowedSignersFile = ~/.git_allowed_signers
 [merge]
 	ff = false
@@ -48,5 +47,3 @@
 	default = simple
 [url "git@github.com:"]
   insteadOf = https://github.com/
-[includeIf "gitdir:~/project/iceye/"]
-  path = ~/project/iceye/.gitconfig

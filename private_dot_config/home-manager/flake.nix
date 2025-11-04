@@ -40,6 +40,7 @@
       modules = [
         {
           nixpkgs.hostPlatform = system;
+          nixpkgs.config.allowUnfree = true;
         }
         ./darwin-configuration.nix
 

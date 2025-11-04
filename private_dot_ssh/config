@@ -4,4 +4,4 @@ Host *
   IgnoreUnknown UseKeychain
   AddKeysToAgent yes
   UseKeychain yes
-  IdentityAgent "/Users/qnguyen/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  IdentityFile ~/.ssh/id_ed25519
