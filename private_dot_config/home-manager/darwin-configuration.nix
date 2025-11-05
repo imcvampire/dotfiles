@@ -108,7 +108,6 @@
     };
 
     taps = [
-      "pirj/noclamshell"
       "theseal/ssh-askpass"
     ];
 
@@ -121,7 +120,6 @@
       "libyaml"
       "neovim"
       "zsh"
-      "pirj/noclamshell/noclamshell"
       "theseal/ssh-askpass/ssh-askpass"
     ];
 
