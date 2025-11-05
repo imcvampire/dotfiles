@@ -131,7 +131,6 @@
 
     masApps = {
       # Mac App Store apps (use mas list to get IDs)
-      "Xcode Command Line Tools" = 497799836;
     };
   };
 }
