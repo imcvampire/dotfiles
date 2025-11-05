@@ -48,16 +48,48 @@
   system.defaults = {
     dock = {
       show-recents = true;
-      tilesize = 48;
+      tilesize = 36;
       minimize-to-application = true;
       mru-spaces = false;
+      scroll-to-open = true;
+      persistent-apps = [
+        {
+          app = "/Applications/Brave Browser.app";
+        }
+        {
+          app = "/Applications/Google Chrome.app";
+        }
+        {
+          app = "/Applications/Ghostty.app";
+        }
+        {
+          app = "/Applications/IntelliJ IDEA.app";
+        }
+        {
+          app = "/Applications/Cursor.app";
+        }
+        {
+          app = "/System/Applications/Mail.app";
+        }
+        {
+          app = "/System/Applications/Calendar.app";
+        }
+        {
+          app = "/System/Applications/Reminders.app";
+        }
+        {
+          app = "/System/Applications/Notes.app";
+        }
+        {
+          app = "/System/Applications/Music.app";
+        }
+      ];
     };
 
     finder = {
-      AppleShowAllExtensions = true;
-      AppleShowAllFiles = true;
       FXEnableExtensionChangeWarning = false;
       FXPreferredViewStyle = "clmv"; # Column view
+      FXRemoveOldTrashItems = true;
       QuitMenuItem = true;
       ShowPathbar = true;
       ShowStatusBar = true;
@@ -69,14 +101,23 @@
       LSQuarantine = false;
     };
 
+    hitoolbox.AppleFnUsageType = "Change Input Source";
+
     NSGlobalDomain = {
       AppleInterfaceStyle = "Dark";
+
       AppleShowAllExtensions = true;
+      AppleShowAllFiles = true;
+
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
+
+      AppleICUForce24HourTime = false;
+
       # Expand save panel by default
       NSNavPanelExpandedStateForSaveMode = true;
       NSNavPanelExpandedStateForSaveMode2 = true;
+
       # Expand print panel by default
       PMPrintingExpandedStateForPrint = true;
       PMPrintingExpandedStateForPrint2 = true;
@@ -89,7 +130,21 @@
 
     screencapture.location = "~/Desktop";
 
-    screensaver.askForPasswordDelay = 10;
+    controlcenter = {
+      NowPlaying = true;
+      Sound = true;
+    };
+
+    SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
+
+    CustomUserPreferences = {
+      NSGlobalDomain = {
+        AppleLanguages = ["en" "vi"];
+        AppleLocale = "en_UK";
+        AppleAccentColor = -1;
+        AppleHighlightColor = "1.000000 0.733333 0.721569 Red";
+      };
+    };
   };
 
   system.keyboard = {
@@ -109,18 +164,15 @@
 
     taps = [
       "theseal/ssh-askpass"
+      "pirj/noclamshell"
     ];
 
     brews = [
       "chezmoi"
-      "difftastic"
-      "git"
-      "git-lfs"
       "jump"
       "libyaml"
-      "neovim"
-      "zsh"
       "theseal/ssh-askpass/ssh-askpass"
+      "pirj/noclamshell/noclamshell"
     ];
 
     casks = [

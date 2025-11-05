@@ -25,6 +25,7 @@
 
     pgcli
 
+    zsh
     # devenv
     just
     tealdeer
