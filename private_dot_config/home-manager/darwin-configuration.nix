@@ -42,6 +42,9 @@
 
   system.primaryUser = userConfig.username;
 
+  # Disable the sound effect on boot
+  system.startup.chime = false;
+
   system.defaults = {
     dock = {
       show-recents = true;
@@ -61,11 +64,22 @@
       _FXShowPosixPathInTitle = true;
     };
 
+    LaunchServices = {
+      # Disable the "Are you sure you want to open this application?" dialog
+      LSQuarantine = false;
+    };
+
     NSGlobalDomain = {
       AppleInterfaceStyle = "Dark";
       AppleShowAllExtensions = true;
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
+      # Expand save panel by default
+      NSNavPanelExpandedStateForSaveMode = true;
+      NSNavPanelExpandedStateForSaveMode2 = true;
+      # Expand print panel by default
+      PMPrintingExpandedStateForPrint = true;
+      PMPrintingExpandedStateForPrint2 = true;
     };
 
     trackpad = {
@@ -117,6 +131,7 @@
 
     masApps = {
       # Mac App Store apps (use mas list to get IDs)
+       "Xcode Command Line Tools" = 497799836;
     };
   };
 }
