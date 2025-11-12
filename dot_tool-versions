@@ -7,3 +7,4 @@ java      system
 terraform system
 deno      system
 bun       system
+uv        latest

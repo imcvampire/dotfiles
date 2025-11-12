@@ -452,18 +452,4 @@
       };
     };
   };
-
-  targets.darwin = {
-    defaults = {
-      NSGlobalDomain = {
-        AppleLanguages = ["en" "vi"];
-        AppleLocale = "en_UK";
-      };
-      "com.apple.desktopservices" = {
-        DSDontWriteNetworkStores = true;
-        DSDontWriteUSBStores = true;
-      };
-    };
-    search = "DuckDuckGo";
-  };
 }

@@ -40,6 +40,10 @@
     '';
   };
 
+  system.activationScripts.extraActivation.text = ''
+    softwareupdate --install-rosetta --agree-to-license
+  '';
+
   system.primaryUser = userConfig.username;
 
   # Disable the sound effect on boot
@@ -69,7 +73,13 @@
           app = "/Applications/Cursor.app";
         }
         {
+          app = "/Applications/Slack.app";
+        }
+        {
           app = "/System/Applications/Mail.app";
+        }
+        {
+          app = "/Applications/Telegram.app";
         }
         {
           app = "/System/Applications/Calendar.app";
@@ -111,6 +121,7 @@
 
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
+      ApplePressAndHoldEnabled = false;
 
       AppleICUForce24HourTime = false;
 
@@ -133,9 +144,12 @@
     controlcenter = {
       NowPlaying = true;
       Sound = true;
+      BatteryShowPercentage = false;
     };
 
     SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
+
+    WindowManager.EnableTiledWindowMargins = false;
 
     CustomUserPreferences = {
       NSGlobalDomain = {
@@ -143,6 +157,11 @@
         AppleLocale = "en_UK";
         AppleAccentColor = -1;
         AppleHighlightColor = "1.000000 0.733333 0.721569 Red";
+        AppleICUForce12HourTime = true;
+      };
+      "com.apple.desktopservices" = {
+        DSDontWriteNetworkStores = true;
+        DSDontWriteUSBStores = true;
       };
     };
   };
@@ -172,15 +191,36 @@
       "jump"
       "libyaml"
       "theseal/ssh-askpass/ssh-askpass"
-      "pirj/noclamshell/noclamshell"
+      {
+        name =       "pirj/noclamshell/noclamshell";
+        restart_service = "changed";
+      }
+      "docker-compose"
     ];
 
     casks = [
       "ghostty"
+      "podman-desktop"
+      "telegram"
+      "utm"
+      "anytype"
+      "ibkr"
+      "portfolioperformance"
     ];
 
     masApps = {
       # Mac App Store apps (use mas list to get IDs)
+      "Bitwarden" = 1352778147;
+      "GarageBand" = 682658836;
+      "iMovie" = 408981434;
+      "Keynote" = 409183694;
+      "LocalSend" = 1661733229;
+      "Numbers" = 409203825;
+      "Pages" = 409201541;
+      "SnippetsLab" = 1006087419;
+      # "uBlock Origin Lite" = 6745342698;
+      "WhatsApp" = 310633997;
+      "Yubico Authenticator" = 1497506650;
     };
   };
 }
