@@ -193,7 +193,7 @@
       "theseal/ssh-askpass/ssh-askpass"
       {
         name =       "pirj/noclamshell/noclamshell";
-        restart_service = "changed";
+        # restart_service = "changed";
       }
       "docker-compose"
     ];
@@ -206,13 +206,12 @@
       "anytype"
       "ibkr"
       "portfolioperformance"
+      "raycast"
     ];
 
     masApps = {
       # Mac App Store apps (use mas list to get IDs)
       "Bitwarden" = 1352778147;
-      "GarageBand" = 682658836;
-      "iMovie" = 408981434;
       "Keynote" = 409183694;
       "LocalSend" = 1661733229;
       "Numbers" = 409203825;
