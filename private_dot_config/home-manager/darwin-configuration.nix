@@ -192,13 +192,15 @@
       "libyaml"
       "theseal/ssh-askpass/ssh-askpass"
       {
-        name =       "pirj/noclamshell/noclamshell";
+        name = "pirj/noclamshell/noclamshell";
         # restart_service = "changed";
       }
       "docker-compose"
     ];
 
     casks = [
+      "brave-browser"
+      "dropzone"
       "ghostty"
       "podman-desktop"
       "telegram"
@@ -207,6 +209,8 @@
       "ibkr"
       "portfolioperformance"
       "raycast"
+      "intellij-idea"
+      "cursor"
     ];
 
     masApps = {
