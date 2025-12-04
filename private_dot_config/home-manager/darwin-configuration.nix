@@ -158,6 +158,7 @@
         AppleAccentColor = -1;
         AppleHighlightColor = "1.000000 0.733333 0.721569 Red";
         AppleICUForce12HourTime = true;
+        AppleShowScrollBars = "WhenScrolling";
       };
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;
@@ -211,6 +212,7 @@
       "raycast"
       "intellij-idea"
       "cursor"
+      "logi-options+"
     ];
 
     masApps = {

@@ -57,6 +57,8 @@
 
     awscli2
 
+    android-tools
+
     monaspace
     atkinson-hyperlegible-next
     nerd-fonts.symbols-only
