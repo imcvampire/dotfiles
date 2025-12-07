@@ -7,15 +7,24 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "terminal": {
+    "font_size": 14.0
+  },
+  "buffer_font_fallbacks": ["Menlo", "Monaco", "Courier New", "monospace"],
+  "buffer_font_family": "Monaspace Neon Var",
+  "auto_indent_on_paste": true,
   "agent_servers": {},
   "context_servers": {
     "mcp-server-github": {
-      "source": "extension",
       "enabled": true,
       "settings": {}
     }
   },
-  "icon_theme": "Catppuccin Mocha",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha"
+  },
   "collaboration_panel": {
     "dock": "right"
   },
@@ -41,9 +50,9 @@
     "diagnostics": false
   },
   "ui_font_size": 14,
-  "buffer_font_size": 14,
+  "buffer_font_size": 16.0,
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "One Light",
     "dark": "Catppuccin Mocha"
   },

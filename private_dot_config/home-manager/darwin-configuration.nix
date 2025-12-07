@@ -185,6 +185,7 @@
     taps = [
       "theseal/ssh-askpass"
       "pirj/noclamshell"
+      "TheBoredTeam/boring-notch"
     ];
 
     brews = [
@@ -213,6 +214,9 @@
       "intellij-idea"
       "cursor"
       "logi-options+"
+      "boring-notch"
+      "claude-code"
+      "zed"
     ];
 
     masApps = {
