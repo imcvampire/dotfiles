@@ -35,6 +35,7 @@
     os_icon                 # os identifier
     dir                     # current directory
     vcs                     # git status
+    my_jj
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol
@@ -79,10 +80,10 @@
     kubecontext             # current kubernetes context (https://kubernetes.io/)
     terraform               # terraform workspace (https://www.terraform.io)
     # terraform_version     # terraform version (https://www.terraform.io)
-    # aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
-    # aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
-    # azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
-    # gcloud                  # google cloud cli account and project (https://cloud.google.com/)
+    aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+    aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
+    azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
+    gcloud                  # google cloud cli account and project (https://cloud.google.com/)
     # google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
     # toolbox                 # toolbox name (https://github.com/containers/toolbox)
     context                 # user@hostname
@@ -185,7 +186,7 @@
 
   #################################[ os_icon: os identifier ]##################################
   # OS identifier color.
-  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=
+  # typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=
   # Custom icon.
   # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='⭐'
 
@@ -1576,8 +1577,94 @@
   # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS. It displays an icon and orange text greeting the user.
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
-  function prompt_example() {
-    p10k segment -f 208 -i '⭐' -t 'hello, %n'
+  # function prompt_example() {
+  #   p10k segment -f 208 -i '⭐' -t 'hello, %n'
+  # }
+
+  # Jujutsu (jj)
+  typeset -g _my_jj_display=""
+  typeset -g _my_jj_workspace=""
+
+  prompt_my_jj() {
+    local workspace
+
+    command -v jj >/dev/null 2>&1 || return
+    if workspace=$(jj workspace root 2>/dev/null); then
+      p10k display "*/jj=show"
+      p10k display "*/vcs=hide"
+    else
+      p10k display "*/jj=hide"
+      p10k display "*/vcs=show"
+      return
+    fi
+
+    # track current workspace for the async worker
+    if [[ $_my_jj_workspace != "$workspace" ]]; then
+      _my_jj_display=""
+      _my_jj_workspace="$workspace"
+    fi
+
+    # request async job for the current workspace
+    async_job _my_jj_worker _my_jj_async "$workspace"
+
+    # note the single quotes, we want this to be interpreted each time
+    p10k segment -t '$_my_jj_display' -e
+  }
+
+  # this function is called by the async worker, and does the work
+  # of calculating the jj status.
+  _my_jj_async() {
+    local workspace=$1
+    local display revision bookmark distance
+
+    revision=$(jj log --repository "$workspace" --ignore-working-copy \
+      --no-graph --limit 1 --color always \
+      --revisions @ -T 'prompt')
+
+    bookmark=$(jj log --repository "$workspace" --ignore-working-copy \
+      --no-graph --limit 1 --color always \
+      -r "closest_bookmark(@)" -T 'bookmarks.join(" ")' 2>/dev/null)
+
+    distance=$(jj log --repository "$workspace" --ignore-working-copy \
+      --no-graph --color never \
+      -r "closest_bookmark(@)..@" \
+      -T 'change_id ++ "\n"' 2>/dev/null | wc -l | tr -d ' ')
+
+    file_status=$(jj log --repository "$workspace" --ignore-working-copy \
+      --no-graph --color never --revisions @ \
+      -T 'self.diff().files().map(|f| f.status()).join("\n")' 2>/dev/null | \
+      sort | uniq -c | awk '
+        /modified/ { parts[++i] = "%F{cyan}?" $1 "%f" }
+        /added/ { parts[++i] = "%F{green}+" $1 "%f" }
+        /removed/ { parts[++i] = "%F{red}-" $1 "%f" }
+        /copied/ { parts[++i] = "%F{yellow}?" $1 "%f" }
+        /renamed/ { parts[++i] = "%F{magenta}?" $1 "%f" }
+        END { for (j=1; j<=i; j++) printf "%s%s", parts[j], (j<i ? " " : "") }
+      ')
+
+    display=$revision
+
+    if [[ -n "$bookmark" ]]; then
+      display+=" $bookmark"
+      if [[ "$distance" -gt 0 ]]; then
+        display+=" %7F?${distance}"
+      fi
+    fi
+    if [[ -n "$file_status" ]]; then
+      display+=" ${file_status}"
+    fi
+
+    echo "$display" | sed 's/\x1b\[[0-9;]*m/%{&%}/g'
+  }
+
+  _my_jj_callback() {
+    local job_name=$1 exit_code=$2 output=$3 execution_time=$4 stderr=$5 next_pending=$6
+    if [[ $exit_code == 0 ]]; then
+      _my_jj_display=$output
+    else
+      _my_jj_display="$output %F{red}$stderr%f"
+    fi
+    p10k display -r
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
@@ -1592,12 +1679,12 @@
   #
   # Usually, you should either not define instant_prompt_* or simply call prompt_* from it. If
   # instant_prompt_* is not defined for a segment, the segment won't be shown in instant prompt.
-  function instant_prompt_example() {
-    # Since prompt_example always makes the same `p10k segment` calls, we can call it from
-    # instant_prompt_example. This will give us the same `example` prompt segment in the instant
-    # and regular prompts.
-    prompt_example
-  }
+  # function instant_prompt_example() {
+  #   # Since prompt_example always makes the same `p10k segment` calls, we can call it from
+  #   # instant_prompt_example. This will give us the same `example` prompt segment in the instant
+  #   # and regular prompts.
+  #   prompt_example
+  # }
 
   # User-defined prompt segments can be customized the same way as built-in segments.
   # typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=208
@@ -1640,3 +1727,9 @@ typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
+
+async_init
+async_stop_worker _my_jj_worker 2>/dev/null
+async_start_worker _my_jj_worker
+async_unregister_callback _my_jj_worker 2>/dev/null
+async_register_callback _my_jj_worker _my_jj_callback

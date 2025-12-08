@@ -82,6 +82,8 @@
 
       initContent = let
         zshConfigEarlyInit = lib.mkOrder 500 ''
+          ZSH_AUTOSUGGEST_USE_ASYNC=true
+
           # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
           # Periodic auto-update on Zsh startup: 'ask' or 'no'.
@@ -133,6 +135,10 @@
           # example. If you don't plan to use Oh My Zsh, delete this line.
           # z4h install ohmyzsh/ohmyzsh || return
 
+          z4h install mafredri/zsh-async || return
+          # zsh-async is needed before p10k is loaded
+          z4h source mafredri/zsh-async/async.zsh
+
           z4h install hlissner/zsh-autopair || return
           z4h install oz/safe-paste || return
           z4h install jreese/zsh-titles || return
@@ -158,6 +164,10 @@
           # z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
           # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
+          z4h load hlissner/zsh-autopair
+          z4h load oz/safe-paste
+          z4h load jreese/zsh-titles
+
           # Define key bindings.
           z4h bindkey undo Ctrl+/   Shift+Tab # undo the last command line change
           z4h bindkey redo Option+/           # redo the last undone command line change
@@ -180,12 +190,6 @@
           # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
           setopt glob_dots     # no special treatment for file names with a leading dot
           setopt no_auto_menu  # require an extra TAB press to open the completion menu
-
-          z4h load hlissner/zsh-autopair
-          z4h load oz/safe-paste
-          z4h load jreese/zsh-titles
-
-          ZSH_AUTOSUGGEST_USE_ASYNC=true
 
           # Aliases
           alias top='htop'
@@ -431,7 +435,34 @@
           key = "~/.ssh/id_ed25519.pub";
         };
         ui = {
-          "diff-formater" = ["difft" "$left" "$right"];
+          "diff-formatter" = ["difft" "--color=always" "$left" "$right"];
+        };
+        revset-aliases = {
+          "closest_bookmark(to)" = "heads(::to & bookmarks())";
+        };
+        colors = {
+          wip = "yellow";
+          todo = "blue";
+          vibe = "cyan";
+          mega = "red";
+        };
+        template-aliases = {
+          "format_short_change_id(id)" = "id.shortest(4)";
+          "format_short_commit_id(id)" = "id.shortest(4)";
+          prompt = ''
+            separate(" ",
+              format_short_change_id_with_hidden_and_divergent_info(self),
+              format_short_commit_id(commit_id),
+              if(empty, label("empty", "(empty)"), ""),
+              if(description == "", label("description placeholder", "(no description)"), ""),
+              if(description.contains("megamerge"), label("mega", "(mega)"), ""),
+              if(description.starts_with("wip"), label("wip", "(wip)"), ""),
+              if(description.starts_with("todo"), label("todo", "(todo)"), ""),
+              if(description.starts_with("vibe"), label("vibe", "(vibe)"), ""),
+              if(description.starts_with("mega"), label("mega", "(mega)"), ""),
+              if(conflict, label("conflict", "(conflict)"), "")
+            )
+          '';
         };
       };
     };
