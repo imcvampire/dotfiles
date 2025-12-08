@@ -422,7 +422,7 @@
       enable = true;
       settings = {
         user = {
-          name = "imcvampire (Quoc-Anh Nguyen)";
+          name = "imcvampire";
           email = "nguyen@qa.id.vn";
         };
         signing = {
