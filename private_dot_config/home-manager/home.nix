@@ -418,6 +418,24 @@
       enable = true;
     };
 
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "imcvampire (Quoc-Anh Nguyen)";
+          email = "nguyen@qa.id.vn";
+        };
+        signing = {
+          behavior = "own";
+          backend = "ssh";
+          key = "~/.ssh/id_ed25519.pub";
+        };
+        ui = {
+          "diff-formater" = ["difft" "$left" "$right"];
+        };
+      };
+    };
+
     nix-index.enable = true;
   };
 

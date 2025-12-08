@@ -202,7 +202,6 @@
 
     casks = [
       "brave-browser"
-      "dropzone"
       "ghostty"
       "podman-desktop"
       "telegram"
@@ -217,6 +216,7 @@
       "boring-notch"
       "claude-code"
       "zed"
+      "lunar"
     ];
 
     masApps = {
