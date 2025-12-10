@@ -355,7 +355,7 @@
           "git rb" = "git rebase";
           "git rbc" = "git rebase --continue";
           "git rbs" = "git rebase --skip";
-          "git stt" = "git status";
+          "git st" = "git status";
           "git unadd" = "git reset HEAD";
           "git uncommit" = "git reset --soft HEAD~1";
           "git uncommit-hard" = "git reset --hard HEAD~1";
