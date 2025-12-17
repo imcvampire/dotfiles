@@ -186,7 +186,6 @@
       "theseal/ssh-askpass"
       "pirj/noclamshell"
       "TheBoredTeam/boring-notch"
-      "CodeOne45/tap"
     ];
 
     brews = [
@@ -199,6 +198,8 @@
         # restart_service = "changed";
       }
       "docker-compose"
+      "CodeOne45/tap/vex"
+      "nikolaeu/numi/numi-cli"
     ];
 
     casks = [
@@ -218,7 +219,6 @@
       "claude-code"
       "zed"
       "lunar"
-      "vex"
     ];
 
     masApps = {
