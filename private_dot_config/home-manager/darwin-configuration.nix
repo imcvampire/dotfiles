@@ -186,6 +186,7 @@
       "theseal/ssh-askpass"
       "pirj/noclamshell"
       "TheBoredTeam/boring-notch"
+      "CodeOne45/tap"
     ];
 
     brews = [
@@ -217,6 +218,7 @@
       "claude-code"
       "zed"
       "lunar"
+      "vex"
     ];
 
     masApps = {

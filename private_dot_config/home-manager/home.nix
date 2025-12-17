@@ -446,6 +446,9 @@
           vibe = "cyan";
           mega = "red";
         };
+        templates = {
+          git_push_bookmark = "\"imcvampire/\" ++ change_id.short()";
+        };
         template-aliases = {
           "format_short_change_id(id)" = "id.shortest(4)";
           "format_short_commit_id(id)" = "id.shortest(4)";
