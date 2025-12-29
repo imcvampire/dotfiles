@@ -203,6 +203,7 @@
     ];
 
     casks = [
+      "appcleaner"
       "brave-browser"
       "ghostty"
       "podman-desktop"
