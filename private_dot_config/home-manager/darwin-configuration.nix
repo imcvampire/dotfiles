@@ -186,6 +186,7 @@
       "theseal/ssh-askpass"
       "pirj/noclamshell"
       "TheBoredTeam/boring-notch"
+      "CodeOne45/tap"
     ];
 
     brews = [
@@ -195,20 +196,19 @@
       "theseal/ssh-askpass/ssh-askpass"
       {
         name = "pirj/noclamshell/noclamshell";
-        # restart_service = "changed";
+        restart_service = "changed";
       }
       "docker-compose"
-      "CodeOne45/tap/vex"
-      "nikolaeu/numi/numi-cli"
+      "vex"
     ];
 
     casks = [
       "appcleaner"
       "brave-browser"
       "ghostty"
-      "podman-desktop"
+      "docker-desktop"
       "telegram"
-      "utm"
+      # "utm"
       "anytype"
       "ibkr"
       "portfolioperformance"
@@ -217,7 +217,6 @@
       "cursor"
       "logi-options+"
       "boring-notch"
-      "claude-code"
       "zed"
       "lunar"
     ];
