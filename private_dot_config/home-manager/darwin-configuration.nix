@@ -196,7 +196,7 @@
       "theseal/ssh-askpass/ssh-askpass"
       {
         name = "pirj/noclamshell/noclamshell";
-        restart_service = "changed";
+        # start_service = true;
       }
       "docker-compose"
       "vex"
@@ -219,6 +219,7 @@
       "boring-notch"
       "zed"
       "lunar"
+      "slack"
     ];
 
     masApps = {

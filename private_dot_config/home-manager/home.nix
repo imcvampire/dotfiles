@@ -214,7 +214,7 @@
           alias gsync='git-sync'
           alias grsorigin='git-reset-origin'
 
-          alias docker='podman'
+          # alias docker='podman'
 
           case `uname` in
             Darwin)
