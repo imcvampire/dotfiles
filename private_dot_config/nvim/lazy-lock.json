@@ -20,6 +20,7 @@
   "nvim-navic": { "branch": "master", "commit": "7d914a39a1ef8f4e22c2c4381abeef7c556f5a13" },
   "nvim-treesitter": { "branch": "main", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "nvim-web-devicons": { "branch": "master", "commit": "8dcb311b0c92d460fac00eac706abd43d94d68af" },
+  "uv.nvim": { "branch": "main", "commit": "b565e03a573ee2f6493d0516b7854b9142855a6a" },
   "vim-bracketed-paste": { "branch": "master", "commit": "ffa3bc10ab511a646f1b30bc9345f240c15394e9" },
   "vim-cutlass": { "branch": "master", "commit": "7afd649415541634c8ce317fafbc31cd19d57589" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" }

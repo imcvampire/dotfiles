@@ -118,5 +118,6 @@ require("lazy").setup({
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   "svermeulen/vim-cutlass",
   { 'SmiteshP/nvim-navic', dependencies = {'neovim/nvim-lspconfig'} },
+  { 'benomahony/uv.nvim', opts = { picker_integration = true } },
 })
 

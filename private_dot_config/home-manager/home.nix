@@ -44,20 +44,23 @@
 
     yubikey-manager
 
+    nodejs
+    pnpm
+
     difftastic
     git
     git-lfs
     jump
     neovim
-    pnpm
     # altair
-    # android-tools
+    android-tools
     # vagrant
     kubectl
 
-    awscli2
-
     android-tools
+
+    claude-code
+    claude-code-router
 
     monaspace
     atkinson-hyperlegible-next

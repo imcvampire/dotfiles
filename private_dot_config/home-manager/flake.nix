@@ -33,6 +33,7 @@
     ...
   }: let
     userConfig = import ./user.nix;
+    brewCustom = import ./brew-custom.nix;
     system = userConfig.system;
     username = userConfig.username;
   in {
@@ -62,7 +63,7 @@
       ];
 
       specialArgs = {
-        inherit self userConfig;
+        inherit self userConfig brewCustom;
       };
     };
 

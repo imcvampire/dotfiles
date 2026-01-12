@@ -1,0 +1,22 @@
+# Custom Homebrew packages
+# Add your personal packages here - they will be merged with the defaults
+{
+  # Additional Homebrew taps
+  taps = [
+    # "example/tap"
+  ];
+
+  # Additional Homebrew formulae
+  brews = [
+    # "example-formula"
+  ];
+
+  # Additional Homebrew casks
+  casks = [
+  ];
+
+  # Additional Mac App Store apps (use `mas list` to get IDs)
+  masApps = {
+    # "App Name" = 123456789;
+  };
+}

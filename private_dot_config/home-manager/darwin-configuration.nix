@@ -3,6 +3,7 @@
   pkgs,
   lib,
   userConfig,
+  brewCustom,
   ...
 }: {
   # Used for backwards compatibility, please read the changelog before changing.
@@ -187,7 +188,7 @@
       "pirj/noclamshell"
       "TheBoredTeam/boring-notch"
       "CodeOne45/tap"
-    ];
+    ] ++ brewCustom.taps;
 
     brews = [
       "chezmoi"
@@ -200,7 +201,7 @@
       }
       "docker-compose"
       "vex"
-    ];
+    ] ++ brewCustom.brews;
 
     casks = [
       "appcleaner"
@@ -220,7 +221,7 @@
       "zed"
       "lunar"
       "slack"
-    ];
+    ] ++ brewCustom.casks;
 
     masApps = {
       # Mac App Store apps (use mas list to get IDs)
@@ -233,6 +234,6 @@
       # "uBlock Origin Lite" = 6745342698;
       "WhatsApp" = 310633997;
       "Yubico Authenticator" = 1497506650;
-    };
+    } // brewCustom.masApps;
   };
 }
