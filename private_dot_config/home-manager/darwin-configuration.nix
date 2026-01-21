@@ -221,6 +221,8 @@
       "zed"
       "lunar"
       "slack"
+      "numi"
+      "notion"
     ] ++ brewCustom.casks;
 
     masApps = {
