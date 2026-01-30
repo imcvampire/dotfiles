@@ -183,62 +183,70 @@
       upgrade = true;
     };
 
-    taps = [
-      "theseal/ssh-askpass"
-      "pirj/noclamshell"
-      "TheBoredTeam/boring-notch"
-      "CodeOne45/tap"
-    ] ++ brewCustom.taps;
+    taps =
+      [
+        "theseal/ssh-askpass"
+        "pirj/noclamshell"
+        "TheBoredTeam/boring-notch"
+        "CodeOne45/tap"
+      ]
+      ++ brewCustom.taps;
 
-    brews = [
-      "chezmoi"
-      "jump"
-      "libyaml"
-      "theseal/ssh-askpass/ssh-askpass"
+    brews =
+      [
+        "chezmoi"
+        "jump"
+        "libyaml"
+        "theseal/ssh-askpass/ssh-askpass"
+        {
+          name = "pirj/noclamshell/noclamshell";
+          # start_service = true;
+        }
+        "docker-compose"
+        "CodeOne45/tap/vex"
+      ]
+      ++ brewCustom.brews;
+
+    casks =
+      [
+        "appcleaner"
+        "brave-browser"
+        "google-chrome"
+        "ghostty"
+        # "docker-desktop"
+        "podman-desktop"
+        "telegram"
+        # "utm"
+        "anytype"
+        "ibkr"
+        "portfolioperformance"
+        "raycast"
+        "intellij-idea"
+        "cursor"
+        "logi-options+"
+        "TheBoredTeam/boring-notch/boring-notch"
+        "zed"
+        "lunar"
+        "slack"
+        "numi"
+        "notion"
+        "clawdbot"
+      ]
+      ++ brewCustom.casks;
+
+    masApps =
       {
-        name = "pirj/noclamshell/noclamshell";
-        # start_service = true;
+        # Mac App Store apps (use mas list to get IDs)
+        # "Bitwarden" = 1352778147;
+        "Keynote" = 409183694;
+        "LocalSend" = 1661733229;
+        "Numbers" = 409203825;
+        "Pages" = 409201541;
+        "SnippetsLab" = 1006087419;
+        # "uBlock Origin Lite" = 6745342698;
+        "WhatsApp" = 310633997;
+        # "Yubico Authenticator" = 1497506650;
       }
-      "docker-compose"
-      "CodeOne45/tap/vex"
-    ] ++ brewCustom.brews;
-
-    casks = [
-      "appcleaner"
-      "brave-browser"
-      "google-chrome"
-      "ghostty"
-      # "docker-desktop"
-      "podman-desktop"
-      "telegram"
-      # "utm"
-      "anytype"
-      "ibkr"
-      "portfolioperformance"
-      "raycast"
-      "intellij-idea"
-      "cursor"
-      "logi-options+"
-      "TheBoredTeam/boring-notch/boring-notch"
-      "zed"
-      "lunar"
-      "slack"
-      "numi"
-      "notion"
-      "clawdbot"
-    ] ++ brewCustom.casks;
-
-    masApps = {
-      # Mac App Store apps (use mas list to get IDs)
-      # "Bitwarden" = 1352778147;
-      "Keynote" = 409183694;
-      "LocalSend" = 1661733229;
-      "Numbers" = 409203825;
-      "Pages" = 409201541;
-      "SnippetsLab" = 1006087419;
-      # "uBlock Origin Lite" = 6745342698;
-      "WhatsApp" = 310633997;
-      # "Yubico Authenticator" = 1497506650;
-    } // brewCustom.masApps;
+      // brewCustom.masApps;
   };
 }

@@ -31,7 +31,7 @@
     # stylix,
     # mac-app-util,
     ...
-  }: let
+  } @ inputs: let
     userConfig = import ./user.nix;
     brewCustom = import ./brew-custom.nix;
     system = userConfig.system;
@@ -51,7 +51,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.${username} = import ./home.nix;
           home-manager.extraSpecialArgs = {
-            inherit system;
+            inherit system inputs;
           };
           home-manager.sharedModules = [
             # mac-app-util.homeManagerModules.default
