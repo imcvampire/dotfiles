@@ -19,8 +19,6 @@
     coreutils
     gettext
 
-    chezmoi
-
     docker
 
     pipx
@@ -235,11 +233,8 @@
 
           compdef kubecolor=kubectl
         '';
-        zshConfig =
-          lib.mkOrder 1000 ''
-          '';
       in
-        lib.mkMerge [zshConfigEarlyInit zshConfig];
+        zshConfigEarlyInit;
 
       envExtra = ''
         # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.

@@ -1,0 +1,9 @@
+["git-semantic-commits"]
+  type = "git-repo"
+  url = "git@github.com:imcvampire/git-semantic-commit"
+  refreshPeriod = "168h"
+
+["scripts"]
+  type = "git-repo"
+  url = "git@github.com:imcvampire/scripts"
+  refreshPeriod = "168h"

@@ -195,7 +195,6 @@
     brews =
       [
         "chezmoi"
-        "jump"
         "libyaml"
         "theseal/ssh-askpass/ssh-askpass"
         {
@@ -228,16 +227,16 @@
         "zed"
         "lunar"
         "slack"
-        "numi"
         "notion"
-        "clawdbot"
+        "antinote"
+        "bruno"
       ]
       ++ brewCustom.casks;
 
     masApps =
       {
         # Mac App Store apps (use mas list to get IDs)
-        # "Bitwarden" = 1352778147;
+        "Bitwarden" = 1352778147;
         "Keynote" = 409183694;
         "LocalSend" = 1661733229;
         "Numbers" = 409203825;
