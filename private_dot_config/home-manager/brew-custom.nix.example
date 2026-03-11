@@ -15,6 +15,9 @@
   casks = [
   ];
 
+  excludedCasks = [
+  ];
+
   # Additional Mac App Store apps (use `mas list` to get IDs)
   masApps = {
     # "App Name" = 123456789;

@@ -1,5 +1,5 @@
 {
-  description = "nix-darwin configuration with Home Manager";
+  description = "NixOS and nix-darwin configuration with Home Manager";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -32,41 +32,88 @@
     # mac-app-util,
     ...
   } @ inputs: let
-    userConfig = import ./user.nix;
+    allUsers = import ./user.nix;
+    darwinConfig = allUsers.darwin;
+    nixosConfig = allUsers.nixos;
     brewCustom = import ./brew-custom.nix;
-    system = userConfig.system;
-    username = userConfig.username;
+
+    hmSharedModules = [
+      # stylix.homeManagerModules.stylix
+      nix-index-database.homeModules.nix-index
+      {programs.nix-index-database.comma.enable = true;}
+    ];
   in {
-    darwinConfigurations."${userConfig.hostname}" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."${darwinConfig.hostname}" = nix-darwin.lib.darwinSystem {
       modules = [
         {
-          nixpkgs.hostPlatform = system;
+          nixpkgs.hostPlatform = darwinConfig.system;
           nixpkgs.config.allowUnfree = true;
         }
-        ./darwin-configuration.nix
+        ./hosts/darwin/default.nix
 
         home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.${username} = import ./home.nix;
-          home-manager.extraSpecialArgs = {
-            inherit system inputs;
+          home-manager.users.${darwinConfig.username} = {
+            imports = [
+              ./home/shared.nix
+              ./home/darwin.nix
+            ];
           };
-          home-manager.sharedModules = [
-            # mac-app-util.homeManagerModules.default
-            # stylix.homeManagerModules.stylix
-            nix-index-database.homeModules.nix-index
-            {programs.nix-index-database.comma.enable = true;}
-          ];
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            system = darwinConfig.system;
+          };
+          home-manager.sharedModules =
+            [
+              # mac-app-util.homeManagerModules.default
+            ]
+            ++ hmSharedModules;
         }
       ];
 
       specialArgs = {
-        inherit self userConfig brewCustom;
+        inherit self brewCustom;
+        userConfig = darwinConfig;
       };
     };
 
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+    nixosConfigurations."${nixosConfig.hostname}" = nixpkgs.lib.nixosSystem {
+      modules = [
+        {
+          nixpkgs.hostPlatform = nixosConfig.system;
+          nixpkgs.config.allowUnfree = true;
+        }
+        ./hosts/nixos/default.nix
+
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.${nixosConfig.username} = {
+            imports = [
+              ./home/shared.nix
+              ./home/nixos.nix
+            ];
+          };
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            system = nixosConfig.system;
+          };
+          home-manager.sharedModules = hmSharedModules;
+        }
+      ];
+
+      specialArgs = {
+        inherit self;
+        userConfig = nixosConfig;
+      };
+    };
+
+    formatter =
+      nixpkgs.lib.genAttrs
+      [darwinConfig.system nixosConfig.system]
+      (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
 }
