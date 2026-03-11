@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "edit_predictions": {
+    "provider": "zed"
+  },
   "terminal": {
     "font_size": 14.0
   },
@@ -35,12 +38,10 @@
     },
     "model_parameters": [],
     "default_model": {
+      "enable_thinking": false,
       "provider": "zed.dev",
-      "model": "claude-sonnet-4-thinking"
+      "model": "gemini-3.1-pro-preview"
     }
-  },
-  "features": {
-    "edit_prediction_provider": "zed"
   },
   "autosave": "on_focus_change",
   "vim_mode": true,
