@@ -32,6 +32,8 @@
   networking.networkmanager.enable = true;
 
   time.timeZone = "UTC";
+  # Windows stores RTC in local time by default; this prevents clock drift in dual boot.
+  time.hardwareClockInLocalTime = true;
   i18n.defaultLocale = "en_GB.UTF-8";
 
   users.users.${userConfig.username} = {
