@@ -33,12 +33,6 @@
       };
       options = "--delete-older-than 30d";
     };
-
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs = true
-      keep-derivations = true
-    '';
   };
 
   system.activationScripts.extraActivation.text = ''

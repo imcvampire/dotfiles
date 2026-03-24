@@ -71,7 +71,7 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
     PAGER = "less";
-    SHELL = "/bin/zsh";
+    SHELL = "zsh";
   };
 
   programs = {
