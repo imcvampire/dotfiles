@@ -5,3 +5,7 @@ font-feature = "calt, ss01, ss02, ss03, ss04, ss05, ss06, ss07, ss08, ss09, ss10
 theme = "Gruvbox Material"
 
 window-new-tab-position = end
+
+window-inherit-working-directory = false
+tab-inherit-working-directory = false
+split-inherit-working-directory = true
