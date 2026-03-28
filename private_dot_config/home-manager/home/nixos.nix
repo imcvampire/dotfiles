@@ -6,6 +6,9 @@
     python3
     ruby
 
+    jetbrains.idea
+    zed
+
     anytype
     bitwarden-desktop
     brave

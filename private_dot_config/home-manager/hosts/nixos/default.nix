@@ -10,6 +10,7 @@
   ];
 
   system.stateVersion = "24.11";
+  system.autoUpgrade.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
