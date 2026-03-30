@@ -472,6 +472,10 @@
       };
     };
 
+    codex = {
+      enable = true;
+    };
+
     nix-index.enable = true;
   };
 
