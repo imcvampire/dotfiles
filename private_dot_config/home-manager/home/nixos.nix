@@ -6,11 +6,14 @@
     python3
     ruby
 
+    zed-editor
     jetbrains.idea
-    zed
+    bruno
 
     anytype
     bitwarden-desktop
+    thunderbird
+
     brave
     ghostty
   ];

@@ -58,6 +58,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.xkbOptions = "ctrl:nocaps";
 
   # Enable the Budgie Desktop environment.
   services.xserver.displayManager.lightdm.enable = true;
@@ -88,10 +89,14 @@
     #media-session.enable = true;
   };
 
+  services.automatic-timezoned.enable = true;
+
   programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   virtualisation.docker.enable = true;
+
+  console.useXkbConfig = true;
 }
