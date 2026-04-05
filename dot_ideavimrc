@@ -12,7 +12,5 @@ set indent-object
 set paragraph-motion
 set NERDTree
 
-source ~/.config/nvim/basic.vim
-source ~/.config/nvim/extended.vim
-source ~/.config/nvim/plugin.vim
+source ~/.lazy-idea/lazy-idea.vim
 

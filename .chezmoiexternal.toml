@@ -7,3 +7,9 @@
   type = "git-repo"
   url = "git@github.com:imcvampire/scripts"
   refreshPeriod = "168h"
+
+[".lazy-idea"]
+  type = "git-repo"
+  url = "https://github.com/cufarvid/lazy-idea.git"
+  refreshPeriod = "168h"
+
