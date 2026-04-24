@@ -234,8 +234,8 @@
         "Bitwarden" = 1352778147;
         "Keynote" = 409183694;
         "LocalSend" = 1661733229;
-        "Numbers" = 409203825;
-        "Pages" = 409201541;
+        "Numbers" = 361304891;
+        "Pages" = 361309726;
         "SnippetsLab" = 1006087419;
         # "uBlock Origin Lite" = 6745342698;
         # "WhatsApp" = 310633997;

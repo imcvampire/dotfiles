@@ -39,8 +39,8 @@
     # ansible
 
     localsend
-
     yubikey-manager
+    # super-productivity
 
     nodejs
     pnpm
@@ -54,13 +54,16 @@
     android-tools
     # vagrant
     kubectl
+    gh
 
-    (pkgs.google-cloud-sdk.withExtraComponents [
-      pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
-    ])
+    # (pkgs.google-cloud-sdk.withExtraComponents [
+    #   pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
+    # ])
 
-    claude-code
-    claude-code-router
+    # claude-code
+    # claude-code-router
+
+    beads
 
     monaspace
     atkinson-hyperlegible-next
