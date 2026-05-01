@@ -65,6 +65,8 @@
 
     beads
 
+    zotero
+
     monaspace
     atkinson-hyperlegible-next
     nerd-fonts.symbols-only

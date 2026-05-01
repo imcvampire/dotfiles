@@ -206,7 +206,6 @@
         "brave-browser"
         "google-chrome"
         "ghostty"
-        # "docker-desktop"
         "podman-desktop"
         "telegram"
         # "utm"
@@ -224,6 +223,8 @@
         "notion"
         "antinote"
         "bruno"
+        "freecad"
+        "autodesk-fusion"
       ]
       ++ brewCustom.casks
     );
