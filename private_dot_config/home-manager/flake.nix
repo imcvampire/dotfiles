@@ -23,7 +23,6 @@
   };
 
   outputs = {
-    self,
     nixpkgs,
     nix-darwin,
     home-manager,
@@ -35,7 +34,6 @@
     allUsers = import ./user.nix;
     darwinConfig = allUsers.darwin;
     nixosConfig = allUsers.nixos;
-    brewCustom = import ./brew-custom.nix;
 
     hmSharedModules = [
       # stylix.homeManagerModules.stylix
@@ -74,7 +72,6 @@
       ];
 
       specialArgs = {
-        inherit self brewCustom;
         userConfig = darwinConfig;
       };
     };
@@ -106,7 +103,6 @@
       ];
 
       specialArgs = {
-        inherit self;
         userConfig = nixosConfig;
       };
     };

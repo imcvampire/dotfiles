@@ -3,9 +3,10 @@
   pkgs,
   lib,
   userConfig,
-  brewCustom,
   ...
-}: {
+}: let
+  brewCustom = import ./brew-custom.nix;
+in {
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
@@ -223,7 +224,7 @@
         "notion"
         "antinote"
         "bruno"
-        "freecad"
+        "shapr3d"
         "autodesk-fusion"
       ]
       ++ brewCustom.casks
