@@ -1,0 +1,21 @@
+{
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "trading-ideas@claude-equity-research-marketplace": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-equity-research-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "quant-sentiment-ai/claude-equity-research"
+      }
+    }
+  },
+  "advisorModel": "opus",
+  "hasCompletedOnboarding": true
+}
