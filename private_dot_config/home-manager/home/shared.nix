@@ -55,13 +55,11 @@
     # vagrant
     kubectl
     gh
+    rtk
 
     # (pkgs.google-cloud-sdk.withExtraComponents [
     #   pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
     # ])
-
-    # claude-code
-    # claude-code-router
 
     beads
 
@@ -481,8 +479,26 @@
       enable = true;
     };
 
+    claude-code = {
+      enable = true;
+    };
+
+    vscode = {
+      enable = true;
+    };
+
     nix-index.enable = true;
   };
+
+  home.activation.claudeSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    export PATH="${config.home.profileDirectory}/bin:$PATH"
+    $DRY_RUN_CMD bash ${../bootstrap/claude-setup.sh} || true
+  '';
+
+  home.activation.codexSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    export PATH="${config.home.profileDirectory}/bin:$PATH"
+    $DRY_RUN_CMD bash ${../bootstrap/codex-setup.sh} || true
+  '';
 
   editorconfig = {
     enable = true;

@@ -1,0 +1,151 @@
+{
+  "model": "opus[1m]",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"~/.claude/hooks/caveman-activate.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading caveman mode..."
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/SuperIsland.app/Contents/Resources/BundledExtensions/agents-status/hooks/cc-event-hook.sh' Idle # cc-status-hook"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"~/.claude/hooks/caveman-mode-tracker.js\"",
+            "timeout": 5,
+            "statusMessage": "Tracking caveman mode..."
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/SuperIsland.app/Contents/Resources/BundledExtensions/agents-status/hooks/cc-event-hook.sh' Working # cc-status-hook"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "rtk hook claude"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/SuperIsland.app/Contents/Resources/BundledExtensions/agents-status/hooks/cc-event-hook.sh' Working # cc-status-hook"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/SuperIsland.app/Contents/Resources/BundledExtensions/agents-status/hooks/cc-event-hook.sh' Auto # cc-status-hook"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/SuperIsland.app/Contents/Resources/BundledExtensions/agents-status/hooks/cc-event-hook.sh' ToolFail # cc-status-hook"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/SuperIsland.app/Contents/Resources/BundledExtensions/agents-status/hooks/cc-event-hook.sh' Waiting # cc-status-hook"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/SuperIsland.app/Contents/Resources/BundledExtensions/agents-status/hooks/cc-event-hook.sh' Idle # cc-status-hook"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Applications/SuperIsland.app/Contents/Resources/BundledExtensions/agents-status/hooks/cc-event-hook.sh' Ended # cc-status-hook"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "http",
+            "url": "http://127.0.0.1:7823/hooks/permission",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "trading-ideas@claude-equity-research-marketplace": true,
+    "caveman@caveman": true,
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-equity-research-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "quant-sentiment-ai/claude-equity-research"
+      }
+    },
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
+  },
+  "advisorModel": "opus",
+  "hasCompletedOnboarding": true
+}

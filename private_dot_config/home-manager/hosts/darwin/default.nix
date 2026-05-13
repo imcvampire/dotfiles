@@ -66,7 +66,10 @@ in {
           app = "/Applications/IntelliJ IDEA.app";
         }
         {
-          app = "/Applications/Cursor.app";
+          app = "/Applications/Claude.app";
+        }
+        {
+          app = "/Applications/Codex.app";
         }
         {
           app = "/Applications/Slack.app";
@@ -150,11 +153,29 @@ in {
     CustomUserPreferences = {
       NSGlobalDomain = {
         AppleLanguages = ["en" "vi"];
-        AppleLocale = "en_UK";
+        AppleLocale = "en_FI";
         AppleAccentColor = -1;
         AppleHighlightColor = "1.000000 0.733333 0.721569 Red";
         AppleICUForce12HourTime = true;
         AppleShowScrollBars = "WhenScrolling";
+
+        AppleMeasurementUnits = "Centimeters";
+        AppleMetricUnits = 1;
+        AppleTemperatureUnit = "Celsius";
+        AppleFirstWeekday = {gregorian = 2;};
+        AppleCollationOrder = "root";
+        AppleICUDateFormatStrings = {
+          "1" = "d.M.y";
+          "2" = "d.M.y";
+          "3" = "d. MMMM y";
+          "4" = "EEEE, d. MMMM y";
+        };
+        AppleICUNumberSymbols = {
+          "0" = ",";
+          "1" = " ";
+          "10" = ",";
+          "17" = " ";
+        };
       };
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;
@@ -215,7 +236,6 @@ in {
         "portfolioperformance"
         "raycast"
         "intellij-idea"
-        "cursor"
         "logi-options+"
         "TheBoredTeam/boring-notch/boring-notch"
         "zed"
@@ -226,6 +246,8 @@ in {
         "bruno"
         "shapr3d"
         "autodesk-fusion"
+        "claude"
+        "tablepro"
       ]
       ++ brewCustom.casks
     );
@@ -233,12 +255,12 @@ in {
     masApps =
       {
         # Mac App Store apps (use mas list to get IDs)
-        "Bitwarden" = 1352778147;
-        "Keynote" = 409183694;
-        "LocalSend" = 1661733229;
-        "Numbers" = 361304891;
-        "Pages" = 361309726;
-        "SnippetsLab" = 1006087419;
+        # "Bitwarden" = 1352778147;
+        # "Keynote" = 409183694;
+        # "LocalSend" = 1661733229;
+        # "Numbers" = 361304891;
+        # "Pages" = 361309726;
+        # "SnippetsLab" = 1006087419;
         # "uBlock Origin Lite" = 6745342698;
         # "WhatsApp" = 310633997;
         # "Yubico Authenticator" = 1497506650;
