@@ -57,13 +57,7 @@ fi
 # ─── MCP servers via install-mcp ───────────────────────────────────────────
 # Registers MCPs in Claude Code (~/.claude.json) and Claude Desktop
 # (~/Library/Application Support/Claude/claude_desktop_config.json).
-# Idempotent. Default project for supermemory: "default".
-
-# Official supermemory.ai (HTTP+OAuth via mcp-remote bridge).
-step "install-mcp supermemory --client claude-code" \
-  npx -y install-mcp@latest https://mcp.supermemory.ai/mcp --client claude-code --oauth=yes --project default --yes
-step "install-mcp supermemory --client claude" \
-  npx -y install-mcp@latest https://mcp.supermemory.ai/mcp --client claude --oauth=yes --project default --yes
+# Idempotent.
 
 # context7 — Desktop only (Claude Code already has it as plugin).
 step "install-mcp context7 --client claude" \

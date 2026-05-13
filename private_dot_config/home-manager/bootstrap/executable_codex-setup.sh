@@ -30,13 +30,6 @@ log "start"
 step "skills add caveman -a codex" \
   bash -c "cd \"\$HOME\" && timeout 60 npx -y skills@latest add JuliusBrussee/caveman -a codex -y --copy -g </dev/null"
 
-# ─── Supermemory MCP for Codex ─────────────────────────────────────────────
-# Registers official supermemory.ai MCP server in ~/.codex/config.toml via
-# mcp-remote bridge. Idempotent. OAuth browser auth on first use.
-# Default project: "default".
-step "install-mcp supermemory --client codex" \
-  npx -y install-mcp@latest https://mcp.supermemory.ai/mcp --client codex --oauth=yes --project default --yes
-
 # ─── MCP servers (codex mcp add idempotent — errors on dup, swallowed) ────
 mcp_has() { codex mcp list 2>/dev/null | awk 'NR>1 {print $1}' | grep -qx "$1"; }
 
