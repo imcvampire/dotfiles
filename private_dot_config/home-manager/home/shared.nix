@@ -16,6 +16,7 @@
 
     coreutils
     gettext
+    gawk
 
     docker
 
@@ -34,7 +35,7 @@
     kubecolor
 
     # firebase-tools
-    # flyctl
+    flyctl
 
     # ansible
 
@@ -298,20 +299,16 @@
         export LANG='en_US.UTF-8'
 
         export GOPATH=''${HOME}/project/go
-        ${lib.optionalString pkgs.stdenv.isDarwin ''
-          export ANDROID_HOME=''${HOME}/Library/Android/Sdk
-          export ANDROID_SDK_ROOT=$ANDROID_HOME
+        export ANDROID_HOME=''${HOME}/Library/Android/Sdk
+        export ANDROID_SDK_ROOT=$ANDROID_HOME
 
-          export PATH="/usr/local/opt/ruby/bin:$PATH"
-        ''}
+        export PATH="/usr/local/opt/ruby/bin:$PATH"
         export PATH=''${PATH}:~/scripts
         export PATH=''${PATH}:~/git-semantic-commits
         export PATH=''${PATH}:''${GOPATH}/bin
         export PATH=''${PATH}:"$(ruby -e 'puts Gem.user_dir')/bin"
         export PATH=''${PATH}:~/.local/share/bin
         export PATH="$PATH":"$HOME/.pub-cache/bin"
-
-        ${lib.optionalString pkgs.stdenv.isDarwin ''export PATH="/usr/local/opt/gawk/libexec/gnubin:$PATH"''}
 
         # Ensure path arrays do not contain duplicates.
         typeset -gU cdpath fpath mailpath path

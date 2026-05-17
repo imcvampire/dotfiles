@@ -3,6 +3,14 @@
 # Wired into home.activation.claudeSetup. Safe to re-run.
 set -uo pipefail
 
+# Neutralize ~/.gitconfig + /etc/gitconfig for child git invocations.
+# Activation sandbox lacks ssh on PATH; user's insteadOf rewrites
+# https://github.com/ → git@github.com: and breaks every clone here.
+# Pointing these at /dev/null makes git skip both files entirely.
+export GIT_CONFIG_GLOBAL=/dev/null
+export GIT_CONFIG_SYSTEM=/dev/null
+export GIT_TERMINAL_PROMPT=0
+
 log() { printf "[%s] claude-setup: %s\n" "$(date +%H:%M:%S)" "$*"; }
 step() {
   local name="$1"; shift
