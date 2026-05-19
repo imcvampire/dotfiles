@@ -14,6 +14,8 @@
     cachix
     nix-prefetch-git
 
+    bash
+    zsh
     coreutils
     gettext
     gawk
@@ -24,7 +26,6 @@
 
     pgcli
 
-    zsh
     # devenv
     just
     tealdeer

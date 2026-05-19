@@ -7,6 +7,14 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "document_symbols": "on",
+  "document_folding_ranges": "on",
+  "semantic_tokens": "combined",
+  "git": {
+    "blame": {
+      "show_avatar": false
+    }
+  },
   "project_panel": {
     "dock": "left"
   },
