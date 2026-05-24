@@ -203,8 +203,8 @@ in {
       [
         "theseal/ssh-askpass"
         "pirj/noclamshell"
-        "TheBoredTeam/boring-notch"
         "CodeOne45/tap"
+        "manaflow-ai/cmux"
       ]
       ++ brewCustom.taps;
 
@@ -237,7 +237,6 @@ in {
         "raycast"
         "intellij-idea"
         "logi-options+"
-        "TheBoredTeam/boring-notch/boring-notch"
         "zed"
         "lunar"
         "slack"
@@ -248,6 +247,7 @@ in {
         "autodesk-fusion"
         "claude"
         "tablepro"
+        "cmux"
       ]
       ++ brewCustom.casks
     );

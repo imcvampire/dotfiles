@@ -302,6 +302,7 @@
         export GOPATH=''${HOME}/project/go
         export ANDROID_HOME=''${HOME}/Library/Android/Sdk
         export ANDROID_SDK_ROOT=$ANDROID_HOME
+        export NPM_CONFIG_PREFIX=''${HOME}/.npm-global
 
         export PATH="/usr/local/opt/ruby/bin:$PATH"
         export PATH=''${PATH}:~/scripts
@@ -310,6 +311,7 @@
         export PATH=''${PATH}:"$(ruby -e 'puts Gem.user_dir')/bin"
         export PATH=''${PATH}:~/.local/share/bin
         export PATH="$PATH":"$HOME/.pub-cache/bin"
+        export PATH=''${PATH}:''${NPM_CONFIG_PREFIX}/bin
 
         # Ensure path arrays do not contain duplicates.
         typeset -gU cdpath fpath mailpath path
