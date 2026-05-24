@@ -63,9 +63,6 @@ in {
           app = "/Applications/cmux.app";
         }
         {
-          app = "/Applications/Warp.app";
-        }
-        {
           app = "/Applications/IntelliJ IDEA.app";
         }
         {
@@ -251,7 +248,6 @@ in {
         "claude"
         "tablepro"
         "cmux"
-        "warp"
       ]
       ++ brewCustom.casks
     );
