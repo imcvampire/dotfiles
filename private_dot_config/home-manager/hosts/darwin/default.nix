@@ -60,7 +60,10 @@ in {
           app = "/Applications/Google Chrome.app";
         }
         {
-          app = "/Applications/Ghostty.app";
+          app = "/Applications/cmux.app";
+        }
+        {
+          app = "/Applications/Warp.app";
         }
         {
           app = "/Applications/IntelliJ IDEA.app";
@@ -248,6 +251,7 @@ in {
         "claude"
         "tablepro"
         "cmux"
+        "warp"
       ]
       ++ brewCustom.casks
     );

@@ -8,6 +8,6 @@ rrule = "RRULE:FREQ=WEEKLY;BYHOUR=7;BYMINUTE=0;BYDAY=SA"
 model = "gpt-5.5"
 reasoning_effort = "xhigh"
 execution_environment = "local"
-cwds = ["~"]
+cwds = ["/Users/nqa/Documents/Stock investment"]
 created_at = 1777714626646
-updated_at = 1778314295273
+updated_at = 1779647709385

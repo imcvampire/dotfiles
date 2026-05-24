@@ -1,9 +1,14 @@
 [appearance]
+spacing = "compact"
 
 [appearance.text]
-font_name = "Monaspace Neon Var"
-font_size = 16.0
+font_name = "Monaspace Neon NF"
+font_size = 18.0
 ligature_rendering_enabled = true
+notebook_font_size = 14.0
+match_ai_font = true
+ai_font_name = "Monaspace Neon NF"
+use_thin_strokes = "always"
 
 [appearance.themes]
 system_theme = false
@@ -12,10 +17,18 @@ current_theme = { custom = { name = "Gruvbox Material Ghostty", path = "~/.warp/
 [appearance.vertical_tabs]
 enabled = true
 
+[appearance.icon]
+app_icon = "default"
+
+[appearance.panes]
+should_dim_inactive_panes = true
+focus_pane_on_hover = true
+
 [terminal]
 
 [terminal.input]
 input_box_type_setting = "universal"
+honor_ps1 = false
 
 [agents]
 cloud_conversation_storage_enabled = false
@@ -46,6 +59,7 @@ default_session_mode = "agent"
 show_code_review_button = true
 show_project_explorer = true
 show_global_search = true
+auto_open_code_review_pane_on_first_agent_change = true
 
 [warp_drive]
 enabled = true

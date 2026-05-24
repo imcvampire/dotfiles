@@ -130,7 +130,8 @@
     "context7@claude-plugins-official": true,
     "trading-ideas@claude-equity-research-marketplace": true,
     "caveman@caveman": true,
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "warp@claude-code-warp": true
   },
   "extraKnownMarketplaces": {
     "claude-equity-research-marketplace": {
@@ -143,6 +144,12 @@
       "source": {
         "source": "github",
         "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "claude-code-warp": {
+      "source": {
+        "source": "github",
+        "repo": "warpdotdev/claude-code-warp"
       }
     }
   },
