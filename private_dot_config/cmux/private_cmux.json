@@ -1,47 +1,43 @@
 {
   "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
   "schemaVersion": 1,
-
   // This file uses JSON with comments (JSONC).
   // Uncomment and edit any setting to make it file-managed.
   // Remove a setting to fall back to the value saved in Settings.
   // cmux creates this template on launch when ~/.config/cmux/cmux.json is missing.
   // Legacy settings.json files are read only as fallback for keys not present here.
-
-  //   "app" : {
-  //     "menuBarOnly" : false,
-  //     "openSupportedFilesInCmux" : true,
-  //     "minimalMode" : false,
-  //     "newWorkspacePlacement" : "afterCurrent",
-  //     "reorderOnNotification" : true,
-  //     "language" : "system",
-  //     "keepWorkspaceOpenWhenClosingLastSurface" : false,
-  //     "openMarkdownInCmuxViewer" : false,
-  //     "sendAnonymousTelemetry" : true,
-  //     "warnBeforeClosingTabXButton" : false,
-  //     "focusPaneOnFirstClick" : false,
-  //     "preferredEditor" : "",
-  //     "confirmQuit" : "always",
-  //     "renameSelectsExistingName" : true,
-  //     "appIcon" : "automatic",
-  //     "hideTabCloseButton" : false,
-  //     "workspaceInheritWorkingDirectory" : true,
-  //     "commandPaletteSearchesAllSurfaces" : false,
-  //     "appearance" : "system",
-  //     "warnBeforeClosingTab" : true,
-  //     "iMessageMode" : false
-  //   },
-
+  "app": {
+    //     "menuBarOnly" : false,
+    //     "openSupportedFilesInCmux" : true,
+    "minimalMode": true,
+    //     "newWorkspacePlacement" : "afterCurrent",
+    //     "reorderOnNotification" : true,
+    //     "language" : "system",
+    //     "keepWorkspaceOpenWhenClosingLastSurface" : false,
+    //     "openMarkdownInCmuxViewer" : false,
+    //     "sendAnonymousTelemetry" : true,
+    //     "warnBeforeClosingTabXButton" : false,
+    //     "focusPaneOnFirstClick" : false,
+    //     "preferredEditor" : "",
+    //     "confirmQuit" : "always",
+    //     "renameSelectsExistingName" : true,
+    //     "appIcon" : "automatic",
+    //     "hideTabCloseButton" : false,
+    //     "workspaceInheritWorkingDirectory" : true,
+    //     "commandPaletteSearchesAllSurfaces" : false,
+    //     "appearance" : "system",
+    //     "warnBeforeClosingTab" : true,
+    //     "iMessageMode" : false
+  },
   //   "terminal" : {
   //     "resumeCommands" : [
-  // 
+  //
   //     ],
   //     "showScrollBar" : true,
   //     "textBoxMaxLines" : 10,
   //     "copyOnSelect" : false,
   //     "autoResumeAgentSessions" : true
   //   },
-
   //   "notifications" : {
   //     "sound" : "default",
   //     "dockBadge" : true,
@@ -52,10 +48,9 @@
   //     "customSoundFilePath" : "",
   //     "unreadPaneRing" : true,
   //     "hooks" : [
-  // 
+  //
   //     ]
   //   },
-
   //   "sidebar" : {
   //     "showPorts" : true,
   //     "showCustomMetadata" : true,
@@ -73,7 +68,6 @@
   //     "makePullRequestsClickable" : true,
   //     "showSSH" : true
   //   },
-
   //   "workspaceColors" : {
   //     "colors" : {
   //       "Magenta" : "#AD1457",
@@ -97,7 +91,6 @@
   //     "selectionColor" : null,
   //     "notificationBadgeColor" : null
   //   },
-
   //   "sidebarAppearance" : {
   //     "darkModeTintColor" : null,
   //     "tintColor" : "#000000",
@@ -105,7 +98,6 @@
   //     "matchTerminalBackground" : false,
   //     "tintOpacity" : 0.17999999999999999
   //   },
-
   //   "automation" : {
   //     "portRange" : 10,
   //     "ripgrepBinaryPath" : "",
@@ -118,11 +110,10 @@
   //     "claudeBinaryPath" : "",
   //     "claudeCodeIntegration" : true
   //   },
-
   //   "browser" : {
   //     "defaultSearchEngine" : "google",
   //     "urlsToAlwaysOpenExternally" : [
-  // 
+  //
   //     ],
   //     "openTerminalLinksInCmuxBrowser" : true,
   //     "showSearchSuggestions" : true,
@@ -136,7 +127,7 @@
   //       "*.localtest.me"
   //     ],
   //     "hostsToOpenInEmbeddedBrowser" : [
-  // 
+  //
   //     ],
   //     "showImportHintOnBlankTabs" : true,
   //     "theme" : "system",
@@ -144,7 +135,6 @@
   //     "interceptTerminalOpenCommandInCmuxBrowser" : true,
   //     "hiddenWebViewDiscardDelaySeconds" : 300
   //   },
-
   //   "shortcuts" : {
   //     "bindings" : {
   //       "reloadConfiguration" : "cmd+shift+,",
