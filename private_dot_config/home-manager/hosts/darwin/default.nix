@@ -240,7 +240,6 @@ in {
         "zed"
         "lunar"
         "slack"
-        "notion"
         "antinote"
         "bruno"
         "shapr3d"
