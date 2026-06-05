@@ -22,8 +22,6 @@
 
     docker
 
-    pipx
-
     pgcli
 
     # devenv
