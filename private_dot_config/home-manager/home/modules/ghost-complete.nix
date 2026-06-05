@@ -46,13 +46,6 @@ in {
     # `ghost-complete.zsh` installs OSC 133 / 7771 prompt markers, OSC 7
     # cwd reporting, and a `zle-line-pre-redraw` buffer hook, so it must
     # run after the user's prompt/zle configuration is in place.
-    # `ghost-complete doctor` detects shell integration by grepping
-    # `~/.zshrc` for the `# >>> ghost-complete initialize >>>` marker that
-    # `ghost-complete install` writes — it does not inspect the actual
-    # `source` lines. Without the marker the doctor reports a false
-    # "Shell integration not found" warning even though integration is
-    # active. Emit the marker around the early init.zsh source to satisfy
-    # the check; this block is managed by Nix, not `ghost-complete install`.
     programs.zsh.initContent = lib.mkIf cfg.enableZshIntegration (
       lib.mkMerge [
         (lib.mkOrder 400 ''
