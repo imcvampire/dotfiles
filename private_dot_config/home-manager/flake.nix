@@ -1,6 +1,11 @@
 {
   description = "NixOS and nix-darwin configuration with Home Manager";
 
+  nixConfig = {
+    extra-substituters = ["https://noctalia.cachix.org"];
+    extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
@@ -13,6 +18,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    noctalia.url = "github:noctalia-dev/noctalia";
 
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -90,6 +97,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.${nixosConfig.username} = {
             imports = [
+              inputs.noctalia.homeModules.default
               ./home/shared.nix
               ./home/nixos.nix
             ];

@@ -31,6 +31,7 @@
 
   networking.hostName = userConfig.hostname;
   networking.networkmanager.enable = true;
+  hardware.bluetooth.enable = true;
 
   # Windows stores RTC in local time by default; this prevents clock drift in dual boot.
   time.hardwareClockInLocalTime = true;
@@ -47,6 +48,8 @@
     settings = {
       experimental-features = ["nix-command" "flakes"];
       trusted-users = ["root" userConfig.username];
+      extra-substituters = ["https://noctalia.cachix.org"];
+      extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
     };
 
     gc = {
@@ -56,21 +59,17 @@
     };
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.xkbOptions = "ctrl:nocaps";
+  # Replace Budgie/X11 with a Niri Wayland session that can host Noctalia.
+  programs.niri.enable = true;
+  programs.xwayland.enable = true;
 
-  # Enable the Budgie Desktop environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.desktopManager.budgie.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+  services.greetd = {
+    enable = true;
+    useTextGreeter = true;
+    settings.default_session.command =
+      "${lib.getExe pkgs.tuigreet} --time --remember --cmd ${lib.getExe' config.programs.niri.package "niri-session"}";
   };
 
-  # Enable CUPS to print documents.
   services.printing.enable = false;
 
   # Enable sound with pipewire.
@@ -90,13 +89,18 @@
   };
 
   services.automatic-timezoned.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
 
   programs.firefox.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+
+    permittedInsecurePackages = [
+      "electron-39.8.10"
+    ];
+  };
 
   virtualisation.docker.enable = true;
-
-  console.useXkbConfig = true;
 }

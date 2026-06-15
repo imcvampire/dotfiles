@@ -1,4 +1,8 @@
 {config, pkgs, ...}: {
+  imports = [
+    ./modules/noctalia.nix
+  ];
+
   home.homeDirectory = "/home/${config.home.username}";
   home.packages = with pkgs; [
     bash
