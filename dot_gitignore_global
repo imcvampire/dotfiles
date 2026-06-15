@@ -43,3 +43,5 @@ Thumbs.db
 *.out
 
 .zed
+
+**/.claude/settings.local.json

@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_ui_font_size": 14.0,
   "document_symbols": "on",
   "document_folding_ranges": "on",
   "semantic_tokens": "combined",
@@ -37,6 +38,9 @@
   "auto_indent_on_paste": true,
   "agent_servers": {
     "claude-acp": {
+      "default_config_options": {
+        "effort": "xhigh"
+      },
       "type": "registry"
     },
     "codex-acp": {
@@ -49,6 +53,11 @@
     }
   },
   "context_servers": {
+    "postgres-context-server": {
+      "enabled": true,
+      "remote": false,
+      "settings": {}
+    },
     "mcp-server-github": {
       "enabled": true,
       "settings": {}
@@ -63,6 +72,9 @@
     "dock": "right"
   },
   "agent": {
+    "show_turn_stats": true,
+    "notify_when_agent_waiting": "all_screens",
+    "single_file_review": true,
     "dock": "right",
     "inline_assistant_model": {
       "provider": "zed.dev",

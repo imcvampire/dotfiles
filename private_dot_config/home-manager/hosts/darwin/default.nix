@@ -28,8 +28,8 @@ in {
     gc = {
       automatic = true;
       interval = {
-        Weekday = 0;
-        Hour = 2;
+        Weekday = 1;
+        Hour = 12;
         Minute = 0;
       };
       options = "--delete-older-than 30d";
