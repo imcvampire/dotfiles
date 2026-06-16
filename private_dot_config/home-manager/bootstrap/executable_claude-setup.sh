@@ -62,6 +62,21 @@ else
   log "skip caveman: plugin dir not found at ~/.claude/plugins/cache/caveman/caveman/*/"
 fi
 
+# ─── Statusline ──────────────────────────────────────────────────────────────
+# Point Claude Code at ~/.claude/statusline.sh. Idempotent jq merge into
+# settings.json (preserves all other keys). Skipped if jq missing.
+set_statusline() {
+  local settings="$HOME/.claude/settings.json"
+  command -v jq >/dev/null 2>&1 || { log "jq missing, skip statusline"; return 0; }
+  mkdir -p "$(dirname "$settings")"
+  [ -s "$settings" ] || echo '{}' > "$settings"
+  local tmp
+  tmp=$(mktemp)
+  jq '.statusLine = {"type":"command","command":"bash ~/.claude/statusline.sh"}' \
+    "$settings" > "$tmp" && mv "$tmp" "$settings"
+}
+step "statusline" set_statusline
+
 # ─── MCP servers via install-mcp ───────────────────────────────────────────
 # Registers MCPs in Claude Code (~/.claude.json) and Claude Desktop
 # (~/Library/Application Support/Claude/claude_desktop_config.json).
