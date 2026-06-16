@@ -159,8 +159,8 @@
           # perform network I/O must be done above. Everything else is best done below.
           z4h init || return
 
-          # Extend PATH.
-          path=(~/bin $path)
+          # Extend PATH for interactive shells.
+          path=(~/bin ~/scripts ~/git-semantic-commits $path)
 
           # Export environment variables.
           export GPG_TTY=$TTY
