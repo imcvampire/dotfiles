@@ -19,6 +19,7 @@
     coreutils
     gettext
     gawk
+    stdenv.cc
 
     docker
 
