@@ -10,7 +10,10 @@
   ];
 
   system.stateVersion = "24.11";
-  system.autoUpgrade.enable = true;
+  system.autoUpgrade = {
+    enable = true;
+    flake = "path:/home/${userConfig.username}/.config/home-manager#${userConfig.hostname}";
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
