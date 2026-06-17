@@ -236,7 +236,6 @@ in {
         "portfolioperformance"
         "raycast"
         "intellij-idea"
-        "logi-options+"
         "zed"
         "lunar"
         "slack"

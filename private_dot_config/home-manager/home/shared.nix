@@ -42,6 +42,7 @@
     localsend
     yubikey-manager
     # super-productivity
+    mouser
 
     nodejs
     pnpm
