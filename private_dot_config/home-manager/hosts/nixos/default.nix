@@ -65,6 +65,13 @@
   # Replace Budgie/X11 with a Niri Wayland session that can host Noctalia.
   programs.niri.enable = true;
   programs.xwayland.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      # Add missing dynamic libraries for unpackaged programs here, not in
+      # environment.systemPackages.
+    ];
+  };
 
   services.greetd = {
     enable = true;
