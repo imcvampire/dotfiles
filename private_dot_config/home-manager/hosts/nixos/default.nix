@@ -95,6 +95,18 @@
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
 
+  systemd.services.lock-sessions-before-sleep = {
+    description = "Lock graphical sessions before sleep";
+    wantedBy = ["sleep.target"];
+    before = ["sleep.target"];
+    unitConfig.DefaultDependencies = false;
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${lib.getExe' pkgs.systemd "loginctl"} lock-sessions";
+      ExecStartPost = "${lib.getExe' pkgs.coreutils "sleep"} 1";
+    };
+  };
+
   programs.firefox.enable = true;
 
   nixpkgs.config = {

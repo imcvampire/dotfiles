@@ -1,10 +1,7 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [
-    swaylock
-  ];
-
+{
   programs.noctalia = {
     enable = true;
+    systemd.enable = true;
     settings.shell = {
       niri_overview_type_to_launch_enabled = true;
     };
