@@ -69,8 +69,7 @@
   services.greetd = {
     enable = true;
     useTextGreeter = true;
-    settings.default_session.command =
-      "${lib.getExe pkgs.tuigreet} --time --remember --cmd ${lib.getExe' config.programs.niri.package "niri-session"}";
+    settings.default_session.command = "${lib.getExe pkgs.tuigreet} --time --remember --cmd ${lib.getExe' config.programs.niri.package "niri-session"}";
   };
 
   services.printing.enable = false;
@@ -94,6 +93,12 @@
   services.automatic-timezoned.enable = true;
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
+    HandleLidSwitchDocked = "suspend";
+    HandlePowerKey = "suspend";
+  };
 
   systemd.services.lock-sessions-before-sleep = {
     description = "Lock graphical sessions before sleep";

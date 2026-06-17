@@ -5,6 +5,7 @@
     settings.shell = {
       niri_overview_type_to_launch_enabled = true;
     };
+    settings.lockscreen.enabled = true;
     settings.location.auto_locate = true;
     settings.nightlight.enabled = true;
     settings.bar.main = {
