@@ -62,7 +62,6 @@
     };
   };
 
-  # Replace Budgie/X11 with a Niri Wayland session that can host Noctalia.
   programs.niri.enable = true;
   programs.xwayland.enable = true;
   programs.nix-ld = {
@@ -81,7 +80,6 @@
 
   services.printing.enable = false;
 
-  # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -106,6 +104,7 @@
     HandleLidSwitchDocked = "suspend";
     HandlePowerKey = "suspend";
   };
+  services.fprintd.enable = true;
 
   systemd.services.lock-sessions-before-sleep = {
     description = "Lock graphical sessions before sleep";
