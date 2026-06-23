@@ -19,7 +19,6 @@
     coreutils
     gettext
     gawk
-    stdenv.cc
 
     docker
 
@@ -70,7 +69,10 @@
     monaspace
     atkinson-hyperlegible-next
     nerd-fonts.symbols-only
-  ];
+  ]
+  # Linux has no system C compiler; pull in nix stdenv.cc.
+  # Darwin uses the system Apple clang (/usr/bin/clang), so skip it there.
+  ++ lib.optional pkgs.stdenv.isLinux pkgs.stdenv.cc;
 
   home.sessionVariables = {
     EDITOR = "nvim";
