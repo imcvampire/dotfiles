@@ -81,6 +81,10 @@
     SHELL = "zsh";
   };
 
+  # Suppress the "Last login: ... on ttys..." banner login(1) prints on each
+  # new terminal. An empty ~/.hushlogin silences it.
+  home.file.".hushlogin".text = "";
+
   programs = {
     home-manager = {
       enable = true;
@@ -98,36 +102,9 @@
           src = pkgs.zsh-autopair;
           file = "share/zsh/zsh-autopair/autopair.zsh";
         }
-        {
-          name = "safe-paste";
-          src = pkgs.fetchFromGitHub {
-            owner = "oz";
-            repo = "safe-paste";
-          };
-          file = "safe-paste.plugin.zsh";
-        }
-        {
-          name = "zsh-titles";
-          src = pkgs.fetchFromGitHub {
-            owner = "jreese";
-            repo = "zsh-titles";
-          };
-          file = "titles.plugin.zsh";
-        }
       ];
 
       initContent = lib.mkMerge [
-        # Runs before compinit (order 570) so brew completions land in $fpath.
-        (lib.mkOrder 560 ''
-          case `uname` in
-            Darwin)
-              if type brew &>/dev/null; then
-                fpath+=($(brew --prefix)/share/zsh/site-functions)
-              fi
-            ;;
-          esac
-        '')
-
         # Must load after compinit (570) and before zsh-autosuggestions (700). fzf's own zsh
         # integration (order 910) then keeps fzf-tab as its fallback completion,
         # so plain TAB uses fzf-tab while `**<TAB>` keeps fzf's file/dir trigger.
@@ -273,7 +250,7 @@
         # Set the default Less options.
         # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
         # Remove -X to enable it.
-        export LESS='-g -i -M -R -S -w -X -z-4'
+        export LESS='-g -i -M -R -S -w -X -z-4 -F'
 
         ## bat https://github.com/sharkdp/bat
         export MANPAGER="sh -c 'col -bx | bat -l man -p'"
