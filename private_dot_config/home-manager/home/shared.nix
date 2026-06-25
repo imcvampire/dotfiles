@@ -88,81 +88,56 @@
 
     zsh = {
       enable = true;
+      enableCompletion = true;
       enableVteIntegration = true;
+      autosuggestion.enable = true;
 
-      initContent = let
-        zshConfigEarlyInit = lib.mkOrder 500 ''
-          ZSH_AUTOSUGGEST_USE_ASYNC=true
+      plugins = [
+        {
+          name = "zsh-autopair";
+          src = pkgs.zsh-autopair;
+          file = "share/zsh/zsh-autopair/autopair.zsh";
+        }
+        {
+          name = "safe-paste";
+          src = pkgs.fetchFromGitHub {
+            owner = "oz";
+            repo = "safe-paste";
+          };
+          file = "safe-paste.plugin.zsh";
+        }
+        {
+          name = "zsh-titles";
+          src = pkgs.fetchFromGitHub {
+            owner = "jreese";
+            repo = "zsh-titles";
+          };
+          file = "titles.plugin.zsh";
+        }
+      ];
 
-          # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
+      initContent = lib.mkMerge [
+        # Runs before compinit (order 570) so brew completions land in $fpath.
+        (lib.mkOrder 560 ''
+          case `uname` in
+            Darwin)
+              if type brew &>/dev/null; then
+                fpath+=($(brew --prefix)/share/zsh/site-functions)
+              fi
+            ;;
+          esac
+        '')
 
-          # Periodic auto-update on Zsh startup: 'ask' or 'no'.
-          # You can manually run `z4h update` to update everything.
-          zstyle ':z4h:' auto-update      'no'
-          # Ask whether to auto-update this often; has no effect if auto-update is 'no'.
-          zstyle ':z4h:' auto-update-days '28'
+        # Must load after compinit (570) and before zsh-autosuggestions (700). fzf's own zsh
+        # integration (order 910) then keeps fzf-tab as its fallback completion,
+        # so plain TAB uses fzf-tab while `**<TAB>` keeps fzf's file/dir trigger.
+        (lib.mkOrder 600 ''
+          source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+          fzf_default_completion=fzf-tab-complete
+        '')
 
-          # Move prompt to the bottom when zsh starts and on Ctrl+L.
-          zstyle ':z4h:' prompt-at-bottom 'yes'
-
-          # Keyboard type: 'mac' or 'pc'.
-          zstyle ':z4h:bindkey' keyboard  '${
-            if pkgs.stdenv.isDarwin
-            then "mac"
-            else "pc"
-          }'
-
-          # Mark up shell's output with semantic information.
-          zstyle ':z4h:' term-shell-integration 'yes'
-
-          zstyle ':z4h:' iterm2-integration 'no'
-
-          zstyle ':z4h:' start-tmux 'no'
-
-          # Right-arrow key accepts one character ('partial-accept') from
-          # command autosuggestions or the whole thing ('accept')?
-          zstyle ':z4h:autosuggestions' forward-char 'accept'
-
-          # Recursively traverse directories when TAB-completing files.
-          zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
-
-          # Enable direnv to automatically source .envrc files.
-          zstyle ':z4h:direnv'         enable 'yes'
-          # Show "loading" and "unloading" notifications from direnv.
-          zstyle ':z4h:direnv:success' notify 'yes'
-
-          # Enable ('yes') or disable ('no') automatic teleportation of z4h over
-          # SSH when connecting to these hosts.
-          # zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
-          # zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
-          # The default value if none of the overrides above match the hostname.
-          zstyle ':z4h:ssh:*'                   enable 'no'
-
-          # Send these files over to the remote host when connecting over SSH to the
-          # enabled hosts.
-          # zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
-
-          # Clone additional Git repositories from GitHub.
-          #
-          # This doesn't do anything apart from cloning the repository and keeping it
-          # up-to-date. Cloned files can be used after `z4h init`. This is just an
-          # example. If you don't plan to use Oh My Zsh, delete this line.
-          # z4h install ohmyzsh/ohmyzsh || return
-
-          z4h install mafredri/zsh-async || return
-          # zsh-async is needed before p10k is loaded
-          z4h source mafredri/zsh-async/async.zsh
-
-          z4h install hlissner/zsh-autopair || return
-          z4h install oz/safe-paste || return
-          z4h install jreese/zsh-titles || return
-
-          # Install or update core components (fzf, zsh-autosuggestions, etc.) and
-          # initialize Zsh. After this point console I/O is unavailable until Zsh
-          # is fully initialized. Everything that requires user interaction or can
-          # perform network I/O must be done above. Everything else is best done below.
-          z4h init || return
-
+        # Main interactive config (runs after compinit).
+        ''
           # Extend PATH for interactive shells.
           path=(~/bin ~/scripts ~/git-semantic-commits $path)
 
@@ -170,26 +145,11 @@
           export GPG_TTY=$TTY
 
           # Source additional local files if they exist.
-          z4h source ~/.env.zsh
+          [[ -f ~/.env.zsh ]] && source ~/.env.zsh
 
-          # Use additional Git repositories pulled in with `z4h install`.
-          #
-          # This is just an example that you should delete. It does nothing useful.
-          # z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
-          # z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
-
-          z4h load hlissner/zsh-autopair
-          z4h load oz/safe-paste
-          z4h load jreese/zsh-titles
-
-          # Define key bindings.
-          z4h bindkey undo Ctrl+/   Shift+Tab # undo the last command line change
-          z4h bindkey redo Option+/           # redo the last undone command line change
-
-          z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
-          z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
-          z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
-          z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
+          # Right Arrow accepts the whole autosuggestion (zsh-autosuggestions
+          # default). Ctrl+/ undoes the last command-line change (zle builtin).
+          bindkey '^_' undo
 
           # Autoload functions.
           autoload -Uz zmv
@@ -197,9 +157,6 @@
           # Define functions and completions.
           function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
           compdef _directories md
-
-          # Define named directories: ~w <=> Windows home directory on WSL.
-          [[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
 
           # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
           setopt glob_dots     # no special treatment for file names with a leading dot
@@ -228,74 +185,69 @@
           alias gsync='git-sync'
           alias grsorigin='git-reset-origin'
 
-          # alias docker='podman'
-
-          case `uname` in
-            Darwin)
-              if type brew &>/dev/null; then
-                fpath+=($(brew --prefix)/share/zsh/site-functions)
-              fi
-            ;;
-          esac
-
           eval "$(jump shell)"
 
           compdef kubecolor=kubectl
-        '';
-      in
-        zshConfigEarlyInit;
+
+          # ---- Completion styling ----
+          # Populate LS_COLORS so completion / fzf-tab can colorize entries.
+          (( $+commands[dircolors] )) && eval "$(dircolors -b)"
+
+          # General completion behaviour.
+          zstyle ':completion:*'        matcher-list      'm:{a-z}={A-Z}'
+          zstyle ':completion:*'        list-colors       "''${(@s.:.)LS_COLORS}"
+          zstyle ':completion:*'        verbose           true
+          zstyle ':completion:*'        squeeze-slashes   true
+          zstyle ':completion:*'        single-ignored    show
+          zstyle ':completion:*:functions' ignored-patterns '-*|_*'
+          zstyle ':completion:*:rm:*'   ignore-line       other
+          zstyle ':completion:*:kill:*' ignore-line       other
+          zstyle ':completion:*:diff:*' ignore-line       other
+          zstyle ':completion:*:rm:*'   file-patterns     '*:all-files'
+          zstyle ':completion:*:paths'  accept-exact-dirs true
+          zstyle ':completion:*:-subscript-:*' tag-order  'indexes parameters'
+          zstyle ':completion:*:-tilde-:*'     tag-order  'directory-stack' 'named-directories' 'users'
+
+          # Cache completion results.
+          zstyle ':completion:*' use-cache  true
+          zstyle ':completion:*' cache-path "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
+          [[ -d "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache" ]] || \
+            mkdir -p "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
+
+          # Hide noisy git refs.
+          zstyle ':completion:*:git-*:argument-rest:heads'           ignored-patterns '(FETCH_|ORIG_|*/|)HEAD'
+          zstyle ':completion:*:git-*:argument-rest:heads-local'     ignored-patterns '(FETCH_|ORIG_|)HEAD'
+          zstyle ':completion:*:git-*:argument-rest:heads-remote'    ignored-patterns '*/HEAD'
+          zstyle ':completion:*:git-*:argument-rest:commits'         ignored-patterns '*'
+          zstyle ':completion:*:git-*:argument-rest:commit-objects'  ignored-patterns '*'
+          zstyle ':completion:*:git-*:argument-rest:recent-branches' ignored-patterns '*'
+
+          # ---- fzf-tab tuning ----
+          # Disable the native zsh menu so fzf-tab can capture candidates.
+          zstyle ':completion:*' menu no
+          # Group support: show a header per completion group.
+          zstyle ':completion:*:descriptions' format '[%d]'
+          # Don't pre-sort `git checkout` refs.
+          zstyle ':completion:*:git-checkout:*' sort false
+          # Preview directory contents (lsd) when completing `cd`.
+          zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always --icon=always $realpath'
+          # Switch completion groups with < and >.
+          zstyle ':fzf-tab:*' switch-group '<' '>'
+        ''
+
+        # fast-syntax-highlighting (zdharma-continuum/fast-syntax-highlighting)
+        # must be sourced last so it wraps every other ZLE widget. Replaces the
+        # highlighter z4h bundled.
+        (lib.mkOrder 1250 ''
+          source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+        '')
+      ];
 
       envExtra = ''
-        # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
-        #
-        # Do not modify this file unless you know exactly what you are doing.
-        # It is strongly recommended to keep all shell customization and configuration
-        # (including exported environment variables such as PATH) in ~/.zshrc or in
-        # files sourced from ~/.zshrc. If you are certain that you must export some
-        # environment variables in ~/.zshenv, do it where indicated by comments below.
-
-        if [ -n "''${ZSH_VERSION-}" ]; then
-          # If you are certain that you must export some environment variables
-          # in ~/.zshenv (see comments at the top!), do it here:
-          #
-          #   export GOPATH=$HOME/go
-
-          ${lib.optionalString pkgs.stdenv.isDarwin "export SSH_SK_PROVIDER=/usr/local/lib/sk-libfido2.dylib"}
-          ABBR_SET_EXPANSION_CURSOR=1
-
-          #
-          # Do not change anything else in this file.
-
-          : ''${ZDOTDIR:=~}
-          setopt no_global_rcs
-          [[ -o no_interactive && -z "''${Z4H_BOOTSTRAPPING-}" ]] && return
-          setopt no_rcs
-          unset Z4H_BOOTSTRAPPING
-        fi
-
-        Z4H_URL="https://raw.githubusercontent.com/romkatv/zsh4humans/v5"
-        : "''${Z4H:=''${XDG_CACHE_HOME:-$HOME/.cache}/zsh4humans/v5}"
-
-        umask o-w
-
-        if [ ! -e "$Z4H"/z4h.zsh ]; then
-          mkdir -p -- "$Z4H" || return
-          >&2 printf '\033[33mz4h\033[0m: fetching \033[4mz4h.zsh\033[0m\n'
-          if command -v curl >/dev/null 2>&1; then
-            curl -fsSL -- "$Z4H_URL"/z4h.zsh >"$Z4H"/z4h.zsh.$$ || return
-          elif command -v wget >/dev/null 2>&1; then
-            wget -O-   -- "$Z4H_URL"/z4h.zsh >"$Z4H"/z4h.zsh.$$ || return
-          else
-            >&2 printf '\033[33mz4h\033[0m: please install \033[32mcurl\033[0m or \033[32mwget\033[0m\n'
-            return 1
-          fi
-          mv -- "$Z4H"/z4h.zsh.$$ "$Z4H"/z4h.zsh || return
-        fi
-
-        . "$Z4H"/z4h.zsh || return
-
-        setopt rcs
+        ${lib.optionalString pkgs.stdenv.isDarwin "export SSH_SK_PROVIDER=/usr/local/lib/sk-libfido2.dylib"}
+        ABBR_SET_EXPANSION_CURSOR=1
       '';
+
       profileExtra = ''
         [ -f ~/.profile ] && source ~/.profile
 
@@ -337,11 +289,13 @@
 
         TMPPREFIX="''${TMPDIR%/}/zsh"
       '';
+
       dirHashes = {
         docs = "$HOME/Documents";
         vids = "$HOME/Videos";
         dl = "$HOME/Downloads";
       };
+
       zsh-abbr = {
         enable = true;
         abbreviations = {
@@ -372,9 +326,15 @@
           "kubectl" = "kubecolor";
         };
       };
+
       history = {
         append = true;
       };
+    };
+
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
     };
 
     direnv = {
