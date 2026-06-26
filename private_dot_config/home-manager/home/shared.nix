@@ -102,6 +102,11 @@
           src = pkgs.zsh-autopair;
           file = "share/zsh/zsh-autopair/autopair.zsh";
         }
+        {
+          name = "zsh-forgit";
+          src = pkgs.zsh-forgit;
+          file = "share/zsh/zsh-forgit/forgit.plugin.zsh";
+        }
       ];
 
       initContent = lib.mkMerge [
