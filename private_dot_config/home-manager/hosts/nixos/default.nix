@@ -99,10 +99,10 @@
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
   services.logind.settings.Login = {
-    HandleLidSwitch = "suspend";
-    HandleLidSwitchExternalPower = "suspend";
-    HandleLidSwitchDocked = "suspend";
-    HandlePowerKey = "suspend";
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+    HandlePowerKey = "ignore";
   };
   services.fprintd.enable = true;
 

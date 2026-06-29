@@ -11,6 +11,8 @@ input {
         tap
         natural-scroll
     }
+
+    disable-power-key-handling
 }
 
 layout {
@@ -85,6 +87,7 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Mod+D hotkey-overlay-title="Run an Application: Noctalia Launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "noctalia" "msg" "session" "lock"; }
+    XF86PowerOff repeat=false allow-when-locked=true hotkey-overlay-title="Lock and Suspend" { spawn-sh "noctalia msg session lock-and-suspend"; }
     Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
@@ -226,6 +229,10 @@ binds {
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
     Mod+Shift+P { power-off-monitors; }
+}
+
+switch-events {
+    lid-close { spawn "noctalia" "msg" "session" "lock-and-suspend"; }
 }
 
 debug {
