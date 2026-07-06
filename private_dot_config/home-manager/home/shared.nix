@@ -369,6 +369,8 @@
 
     fzf = {
       enable = true;
+      # Atuin owns Ctrl-R history search.
+      historyWidget.command = "";
     };
 
     jujutsu = {

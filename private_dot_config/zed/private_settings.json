@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "diff_view_style": "split",
   "agent_ui_font_size": 14.0,
   "document_symbols": "on",
   "document_folding_ranges": "on",
@@ -23,6 +24,7 @@
     "dock": "right"
   },
   "git_panel": {
+    "tree_view": true,
     "dock": "right"
   },
   "buffer_line_height": "standard",

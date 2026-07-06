@@ -11,6 +11,13 @@ in {
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
 
+  # Manual build broken: nixpkgs-unstable removed nixos-render-docs --toc-depth
+  # flag before pinned nix-darwin rev caught up. Re-enable after nix-darwin update.
+  # Uninstaller embeds its own default-config system eval, which also builds the
+  # manual, so it must be disabled as well.
+  documentation.enable = false;
+  system.tools.darwin-uninstaller.enable = false;
+
   # User configuration
   users.users.${userConfig.username} = {
     name = userConfig.username;
