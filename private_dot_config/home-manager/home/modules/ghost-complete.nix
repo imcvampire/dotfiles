@@ -49,10 +49,7 @@ in {
     programs.zsh.initContent = lib.mkIf cfg.enableZshIntegration (
       lib.mkMerge [
         (lib.mkOrder 400 ''
-          # >>> ghost-complete initialize >>>
-          # !! Managed by home-manager (programs.ghost-complete), not `ghost-complete install` !!
           source ${shellDir}/init.zsh
-          # <<< ghost-complete initialize <<<
         '')
         (lib.mkAfter "source ${shellDir}/ghost-complete.zsh")
       ]
