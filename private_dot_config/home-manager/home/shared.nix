@@ -317,6 +317,9 @@
     starship = {
       enable = true;
       enableZshIntegration = true;
+      settings = {
+        continuation_prompt = "▶▶ ";
+      };
     };
 
     direnv = {
