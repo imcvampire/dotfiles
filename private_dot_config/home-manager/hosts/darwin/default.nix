@@ -70,31 +70,19 @@ in {
           app = "/Applications/cmux.app";
         }
         {
-          app = "/Applications/IntelliJ IDEA.app";
+          app = "/Applications/RustRover.app";
         }
         {
           app = "/Applications/Claude.app";
         }
         {
-          app = "/Applications/Codex.app";
+          app = "/Applications/Mattermost.app";
         }
         {
-          app = "/Applications/Slack.app";
+          app = "/Applications/Microsoft Outlook.app";
         }
         {
-          app = "/System/Applications/Mail.app";
-        }
-        {
-          app = "/Applications/Telegram.app";
-        }
-        {
-          app = "/System/Applications/Calendar.app";
-        }
-        {
-          app = "/System/Applications/Reminders.app";
-        }
-        {
-          app = "/System/Applications/Notes.app";
+          app = "/Applications/zoom.us.app";
         }
         {
           app = "/System/Applications/Music.app";
