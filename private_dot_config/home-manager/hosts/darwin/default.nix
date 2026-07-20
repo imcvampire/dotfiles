@@ -64,10 +64,10 @@ in {
           app = "/Applications/Brave Browser.app";
         }
         {
-          app = "/Applications/Google Chrome.app";
+          app = "/Applications/cmux.app";
         }
         {
-          app = "/Applications/cmux.app";
+          app = "/Applications/Google Chrome.app";
         }
         {
           app = "/Applications/RustRover.app";
@@ -206,7 +206,6 @@ in {
     brews =
       [
         "chezmoi"
-        "libyaml"
         "theseal/ssh-askpass/ssh-askpass"
         {
           name = "pirj/noclamshell/noclamshell";
@@ -222,7 +221,6 @@ in {
         "appcleaner"
         "brave-browser"
         "google-chrome"
-        "ghostty"
         "podman-desktop"
         "telegram"
         # "utm"
@@ -238,9 +236,9 @@ in {
         "bruno"
         "shapr3d"
         "autodesk-fusion"
-        "claude"
         "tablepro"
         "cmux"
+        "claude"
       ]
       ++ brewCustom.casks
     );
