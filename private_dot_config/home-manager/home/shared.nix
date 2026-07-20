@@ -432,9 +432,9 @@
       enable = true;
     };
 
-    vscode = {
-      enable = true;
-    };
+    # vscode = {
+    #   enable = true;
+    # };
 
     nix-index.enable = true;
   };

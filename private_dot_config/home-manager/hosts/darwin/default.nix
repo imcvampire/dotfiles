@@ -147,7 +147,7 @@ in {
 
     CustomUserPreferences = {
       NSGlobalDomain = {
-        AppleLanguages = ["en" "vi"];
+        AppleLanguages = ["en_UK" "vi"];
         AppleLocale = "en_FI";
         AppleAccentColor = -1;
         AppleHighlightColor = "1.000000 0.733333 0.721569 Red";
