@@ -213,6 +213,7 @@ in {
         }
         "docker-compose"
         "CodeOne45/tap/vex"
+        "thaw"
       ]
       ++ brewCustom.brews;
 
