@@ -21,6 +21,8 @@
 
     noctalia.url = "github:noctalia-dev/noctalia";
 
+    iris.url = "github:versenilvis/iris/main";
+
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 

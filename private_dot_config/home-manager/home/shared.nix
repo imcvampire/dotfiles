@@ -70,6 +70,7 @@
     atkinson-hyperlegible-next
     nerd-fonts.symbols-only
   ]
+  ++ [inputs.iris.packages.${pkgs.system}.default]
   # Linux has no system C compiler; pull in nix stdenv.cc.
   # Darwin uses the system Apple clang (/usr/bin/clang), so skip it there.
   ++ lib.optional pkgs.stdenv.isLinux pkgs.stdenv.cc;
@@ -215,11 +216,17 @@
           zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always --icon=always $realpath'
           # Switch completion groups with < and >.
           zstyle ':fzf-tab:*' switch-group '<' '>'
+
+          if command -v iris >/dev/null 2>&1; then
+            # Auto-start iris, but not in nested shells.
+            if [[ $SHLVL -eq 1 ]]; then
+              iris
+            fi
+          fi
         ''
 
         # fast-syntax-highlighting (zdharma-continuum/fast-syntax-highlighting)
-        # must be sourced last so it wraps every other ZLE widget. Replaces the
-        # highlighter z4h bundled.
+        # must be sourced last so it wraps every other ZLE widget.
         (lib.mkOrder 1250 ''
           source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
         '')

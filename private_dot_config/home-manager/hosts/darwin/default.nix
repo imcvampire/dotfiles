@@ -213,7 +213,6 @@ in {
         }
         "docker-compose"
         "CodeOne45/tap/vex"
-        "thaw"
       ]
       ++ brewCustom.brews;
 
@@ -240,6 +239,7 @@ in {
         "tablepro"
         "cmux"
         "claude"
+        "thaw"
       ]
       ++ brewCustom.casks
     );
