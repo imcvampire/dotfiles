@@ -40,7 +40,6 @@
 
     localsend
     yubikey-manager
-    # super-productivity
     mouser
 
     nodejs
@@ -56,7 +55,6 @@
     # vagrant
     kubectl
     gh
-    rtk
 
     # (pkgs.google-cloud-sdk.withExtraComponents [
     #   pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin

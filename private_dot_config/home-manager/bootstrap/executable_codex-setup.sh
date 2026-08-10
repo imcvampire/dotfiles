@@ -29,15 +29,6 @@ command -v npx   >/dev/null 2>&1 || { log "npx missing, skipping"; exit 0; }
 
 log "start"
 
-# ─── Caveman skills for Codex ──────────────────────────────────────────────
-# Direct `skills add` invocation, bypassing caveman's `install.sh` wrapper.
-# Wrapper omits `-y` on the inner `skills add` call → may prompt and hang on
-# fresh invocations. Direct call adds `-y --copy -g` and closes stdin via
-# `</dev/null`. 60s timeout caps worst case. `-a codex` targets only codex.
-# Skills land in ~/.agents/skills/ (open agent skills ecosystem).
-step "skills add caveman -a codex" \
-  bash -c "cd \"\$HOME\" && timeout 60 npx -y skills@latest add JuliusBrussee/caveman -a codex -y --copy -g </dev/null"
-
 # ─── MCP servers (codex mcp add idempotent — errors on dup, swallowed) ────
 mcp_has() { codex mcp list 2>/dev/null | awk 'NR>1 {print $1}' | grep -qx "$1"; }
 

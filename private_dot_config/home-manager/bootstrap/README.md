@@ -5,12 +5,6 @@ Idempotent setup scripts wired into home-manager activation
 
 ## Tools installed
 
-- **caveman**
-  - Claude Code → plugin + hooks + statusline (via `caveman/install.sh --only claude`)
-  - Codex → skills in `~/.agents/skills/` (via `caveman/install.sh --only codex`)
-- **caveman-shrink** — MCP
-  - Claude Code (registered automatically by `caveman/install.sh`)
-  - Claude Desktop (via `install-mcp caveman-shrink --client claude`)
 - **trading-ideas** — plugin
   - Claude Code (via `quant-sentiment-ai/claude-equity-research` marketplace)
 - **context7**

@@ -3,8 +3,8 @@
 #	name = NQA
 #	email = nqa@nqa-laptop.(none)
 [user]
-	name = imcvampire
-	email = anhnq0@gmail.com
+	name = Quoc Anh Nguyen
+	email = nguyen@qa.id.vn
 	signingkey = /Users/qa/.ssh/id_ed25519.pub
 [core]
 	excludesfile = ~/.gitignore_global
@@ -50,3 +50,6 @@
 
 [init]
 	defaultBranch = main
+
+[includeIf "gitdir:~/Projects/iqm/"]
+  path = ~/Projects/iqm/.gitconfig
