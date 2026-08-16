@@ -431,10 +431,12 @@
 
     codex = {
       enable = true;
+      context = ./agent-context.md;
     };
 
     claude-code = {
       enable = true;
+      context = ./agent-context.md;
     };
 
     # vscode = {

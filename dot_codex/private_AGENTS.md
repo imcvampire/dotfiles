@@ -1,1 +1,0 @@
-@~/.codex/RTK.md
