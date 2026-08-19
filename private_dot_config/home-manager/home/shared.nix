@@ -35,8 +35,7 @@
 
     # firebase-tools
     flyctl
-
-    # ansible
+    glab
 
     localsend
     yubikey-manager
