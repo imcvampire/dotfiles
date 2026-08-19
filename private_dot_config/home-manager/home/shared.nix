@@ -445,15 +445,15 @@
     nix-index.enable = true;
   };
 
-  # home.activation.claudeSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #   export PATH="${config.home.profileDirectory}/bin:$PATH"
-  #   $DRY_RUN_CMD bash ${../bootstrap/claude-setup.sh} || true
-  # '';
+  home.activation.claudeSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    export PATH="${config.home.profileDirectory}/bin:$PATH"
+    $DRY_RUN_CMD bash ${../bootstrap/claude-setup.sh} || true
+  '';
 
-  # home.activation.codexSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #   export PATH="${config.home.profileDirectory}/bin:$PATH"
-  #   $DRY_RUN_CMD bash ${../bootstrap/codex-setup.sh} || true
-  # '';
+  home.activation.codexSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    export PATH="${config.home.profileDirectory}/bin:$PATH"
+    $DRY_RUN_CMD bash ${../bootstrap/codex-setup.sh} || true
+  '';
 
   editorconfig = {
     enable = true;

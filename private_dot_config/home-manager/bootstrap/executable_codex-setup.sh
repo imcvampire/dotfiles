@@ -29,6 +29,15 @@ command -v npx   >/dev/null 2>&1 || { log "npx missing, skipping"; exit 0; }
 
 log "start"
 
+# ─── Shared skills dir (~/.agents/skills) ──────────────────────────────────
+# Codex reads ~/.agents/skills natively — no wiring needed. Verified by
+# dropping a SKILL.md there and running `codex debug prompt-input`: it is
+# listed in <skills_instructions> with its ~/.agents path, alongside the
+# built-ins from ~/.codex/skills/.system. So do NOT symlink it into
+# ~/.codex/skills — that would double-register every skill.
+# The directory itself is created elsewhere, not here.
+# Claude Code has no such support and needs a symlink; see claude-setup.sh.
+
 # ─── MCP servers (codex mcp add idempotent — errors on dup, swallowed) ────
 mcp_has() { codex mcp list 2>/dev/null | awk 'NR>1 {print $1}' | grep -qx "$1"; }
 
