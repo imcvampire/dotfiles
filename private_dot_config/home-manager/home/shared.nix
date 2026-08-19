@@ -67,10 +67,10 @@
     atkinson-hyperlegible-next
     nerd-fonts.symbols-only
   ]
-  ++ [inputs.iris.packages.${pkgs.system}.default]
+  ++ [inputs.iris.packages.${system}.default]
   # Linux has no system C compiler; pull in nix stdenv.cc.
   # Darwin uses the system Apple clang (/usr/bin/clang), so skip it there.
-  ++ lib.optional pkgs.stdenv.isLinux pkgs.stdenv.cc;
+  ++ lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.stdenv.cc;
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -230,7 +230,7 @@
       ];
 
       envExtra = ''
-        ${lib.optionalString pkgs.stdenv.isDarwin "export SSH_SK_PROVIDER=/usr/local/lib/sk-libfido2.dylib"}
+        ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin "export SSH_SK_PROVIDER=/usr/local/lib/sk-libfido2.dylib"}
         ABBR_SET_EXPANSION_CURSOR=1
       '';
 
