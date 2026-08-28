@@ -14,6 +14,11 @@
     cachix
     nix-prefetch-git
 
+    # Fan ~/.agents/skills out into ~/.claude/skills and ~/.codex/skills as
+    # one symlink per skill. Run by hand after adding a shared skill; also
+    # wired into home.activation.skillsSync below.
+    (writeShellScriptBin "skills-sync" (builtins.readFile ../bootstrap/skills-sync.sh))
+
     bash
     zsh
     coreutils
@@ -456,6 +461,13 @@
   home.activation.codexSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
     export PATH="${config.home.profileDirectory}/bin:$PATH"
     $DRY_RUN_CMD bash ${../bootstrap/codex-setup.sh} || true
+  '';
+
+  # Per-skill fan-out of the shared skills dir into each agent's own root.
+  # Runs after both agent setups; neither creates the roots any more.
+  home.activation.skillsSync = lib.hm.dag.entryAfter ["claudeSetup" "codexSetup"] ''
+    export PATH="${config.home.profileDirectory}/bin:$PATH"
+    $DRY_RUN_CMD bash ${../bootstrap/skills-sync.sh} || true
   '';
 
   editorconfig = {

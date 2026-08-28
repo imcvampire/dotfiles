@@ -16,26 +16,60 @@ Idempotent setup scripts wired into home-manager activation
 
 ## Shared skills (`~/.agents/skills`)
 
-Cross-agent skill directory. Drop a `<name>/SKILL.md` in there and both CLIs
-pick it up.
+Cross-agent skill directory. Drop a `<name>/SKILL.md` in there, run
+`skills-sync`, and both CLIs pick it up — while each keeps its own
+specialized skills alongside.
 
-| CLI | Support | Wiring |
-| --- | --- | --- |
-| Codex | native | none — reads `~/.agents/skills` directly |
-| Claude Code | none | `~/.claude/skills` → `~/.agents/skills` symlink |
+```
+~/.agents/skills/<name>/SKILL.md          shared — source of truth
+~/.claude/skills/                         real dir
+  ├── <claude-only>/SKILL.md              Claude-specific
+  └── <name> -> ~/.agents/skills/<name>   one symlink per shared skill
+~/.codex/skills/                          real dir
+  ├── .system/                            codex built-ins (untouched)
+  ├── <codex-only>/SKILL.md               Codex-specific
+  └── <name> -> ~/.agents/skills/<name>   one symlink per shared skill
+```
 
-Claude Code searches only `managed`, `user` (`~/.claude/skills`) and `project`
-(`.claude/skills`) roots, with no setting to add another, so `claude-setup.sh`
-symlinks the user root at `~/.agents/skills`. The link is skipped (with a
-warning) if `~/.claude/skills` already exists as a non-empty real directory.
+`skills-sync.sh` maintains the symlinks (idempotent): it links every shared
+dir containing a `SKILL.md`, prunes links whose shared skill is gone, and
+never touches anything that is not a symlink into `~/.agents/skills`. It runs
+on every `darwin-rebuild switch` (`home.activation.skillsSync`, after
+`claudeSetup`/`codexSetup`) and is on `PATH` as `skills-sync` for use between
+rebuilds.
 
-Neither script creates `~/.agents/skills` — it is provisioned separately. The
-symlink is made regardless of whether the directory exists yet; a dangling
-link is harmless and starts working as soon as the directory appears, so
-activation ordering does not matter.
+### Discovery models
 
-Caveat: Claude Code's own skill writes (`.trash/`, `synced/`) land in
-`~/.agents/skills` once the symlink is in place.
+| CLI | Roots read | Follows symlinked skill dirs | De-dupes by |
+| --- | --- | --- | --- |
+| Claude Code | `~/.claude/skills` only (+ managed, project) | yes | n/a — single root |
+| Codex | `~/.codex/skills` **and** `~/.agents/skills` | yes | resolved path |
+
+Verified 2026-08-28 with `claude --debug` (root list) plus a live probe skill,
+and `codex debug prompt-input` (`<skills_instructions>` listing).
+
+Consequences:
+
+- Claude Code has no setting to add a skills root, which is why the fan-out
+  exists at all.
+- Codex would see shared skills without any symlinks. They are created anyway
+  to keep both roots symmetric and self-describing, and cost nothing: Codex
+  de-dupes by resolved path, so a symlinked skill is still listed once.
+  (An earlier comment in `codex-setup.sh` claimed symlinks double-register.
+  That was wrong.)
+- **Overriding** a shared skill by name works cleanly only in Claude Code:
+  replace the symlink with a real dir and `skills-sync` leaves it alone. In
+  Codex the same move registers the name **twice** (own root + native shared
+  read are different files); `skills-sync` prints a WARNING. Rename the
+  override, or drop the shared copy.
+
+Neither script creates `~/.agents/skills` — it is provisioned separately. A
+missing shared dir is not an error; `skills-sync` just logs and links nothing.
+
+Superseded: `~/.claude/skills` used to be a whole-dir symlink to
+`~/.agents/skills`. That blocked Claude-specific skills entirely and let
+Claude Code's own writes (`.trash/`, `synced/`) land in the shared dir.
+`skills-sync` migrates the old symlink to a real dir automatically.
 
 ## Scripts
 

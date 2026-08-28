@@ -29,14 +29,19 @@ command -v npx   >/dev/null 2>&1 || { log "npx missing, skipping"; exit 0; }
 
 log "start"
 
-# ─── Shared skills dir (~/.agents/skills) ──────────────────────────────────
-# Codex reads ~/.agents/skills natively — no wiring needed. Verified by
-# dropping a SKILL.md there and running `codex debug prompt-input`: it is
-# listed in <skills_instructions> with its ~/.agents path, alongside the
-# built-ins from ~/.codex/skills/.system. So do NOT symlink it into
-# ~/.codex/skills — that would double-register every skill.
-# The directory itself is created elsewhere, not here.
-# Claude Code has no such support and needs a symlink; see claude-setup.sh.
+# ─── Shared skills ─────────────────────────────────────────────────────────
+# Codex reads ~/.agents/skills natively, in ADDITION to ~/.codex/skills.
+# Verified by dropping a SKILL.md there and running `codex debug
+# prompt-input`: it is listed in <skills_instructions> with its ~/.agents
+# path, alongside the built-ins from ~/.codex/skills/.system.
+#
+# Re-verified 2026-08-28: it de-duplicates by RESOLVED PATH, not by name, so
+# symlinking a shared skill into ~/.codex/skills does NOT double-register it
+# (an earlier comment here claimed otherwise — wrong). The per-skill fan-out
+# therefore runs for Codex too, keeping both agents' roots symmetric; see
+# skills-sync.sh (home.activation.skillsSync). Codex-specific skills are real
+# dirs in ~/.codex/skills. Note an override of a shared NAME does register
+# twice, because the shared copy is a different file — skills-sync warns.
 
 # ─── MCP servers (codex mcp add idempotent — errors on dup, swallowed) ────
 mcp_has() { codex mcp list 2>/dev/null | awk 'NR>1 {print $1}' | grep -qx "$1"; }

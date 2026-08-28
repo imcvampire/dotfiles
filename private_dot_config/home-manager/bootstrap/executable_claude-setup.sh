@@ -47,43 +47,16 @@ for p in "${PLUGINS[@]}"; do
     claude plugin install "$p"
 done
 
-# ─── Shared skills dir (~/.agents/skills) ──────────────────────────────────
+# ─── Shared skills ─────────────────────────────────────────────────────────
 # Claude Code discovers user skills in ~/.claude/skills only. Verified with
 # `claude --debug`:
 #   Loading skills from: managed=/Library/Application Support/ClaudeCode/...,
 #                        user=/Users/<u>/.claude/skills, project=[]
-# There is no ~/.agents/skills in its search path and no setting to add one,
-# so bridge the two with a symlink. Codex reads ~/.agents/skills natively —
-# see codex-setup.sh.
-AGENTS_SKILLS="$HOME/.agents/skills"
-link_agents_skills() {
-  local target="$HOME/.claude/skills"
-
-  # The source dir is created elsewhere. Link it anyway if it is not there
-  # yet — a dangling symlink is harmless (Claude Code just logs a failed
-  # stat) and starts working the moment the directory appears, which keeps
-  # this independent of activation ordering.
-  [ -d "$AGENTS_SKILLS" ] || log "  note: $AGENTS_SKILLS does not exist yet"
-
-  # Already pointing where we want it.
-  if [ -L "$target" ] && [ "$(readlink "$target")" = "$AGENTS_SKILLS" ]; then
-    log "  already linked"
-    return 0
-  fi
-
-  # A real directory holding skills is user data — never clobber it.
-  if [ -d "$target" ] && [ ! -L "$target" ]; then
-    if [ -n "$(ls -A "$target" 2>/dev/null)" ]; then
-      log "  $target is a non-empty real dir; move its contents into"
-      log "  $AGENTS_SKILLS and re-run to finish the switch"
-      return 1
-    fi
-    rmdir "$target"
-  fi
-
-  ln -sfn "$AGENTS_SKILLS" "$target"
-}
-step "link ~/.agents/skills -> ~/.claude/skills" link_agents_skills
+# There is no setting to add another root. It DOES follow symlinked skill
+# dirs inside that root, so ~/.claude/skills stays a real directory holding
+# Claude-only skills plus one symlink per shared skill. That fan-out lives in
+# skills-sync.sh (home.activation.skillsSync, also on PATH as `skills-sync`),
+# shared with Codex — not here.
 
 # ─── Statusline ──────────────────────────────────────────────────────────────
 # Point Claude Code at ~/.claude/statusline.sh. Idempotent jq merge into
