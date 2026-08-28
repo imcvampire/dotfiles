@@ -45,3 +45,5 @@ Thumbs.db
 .zed
 
 **/.claude/settings.local.json
+
+.codegraph/

@@ -67,6 +67,9 @@ in {
           app = "/Applications/cmux.app";
         }
         {
+          app = "/Applications/Orca.app";
+        }
+        {
           app = "/Applications/Google Chrome.app";
         }
         {
@@ -207,10 +210,6 @@ in {
       [
         "chezmoi"
         "theseal/ssh-askpass/ssh-askpass"
-        {
-          name = "pirj/noclamshell/noclamshell";
-          # start_service = true;
-        }
         "docker-compose"
         "CodeOne45/tap/vex"
       ]

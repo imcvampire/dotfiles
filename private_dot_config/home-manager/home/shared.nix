@@ -55,6 +55,8 @@
     kubectl
     gh
 
+    codegraph
+
     # (pkgs.google-cloud-sdk.withExtraComponents [
     #   pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
     # ])
@@ -119,7 +121,7 @@
         # Main interactive config (runs after compinit).
         ''
           # Extend PATH for interactive shells.
-          path=(~/bin ~/scripts ~/git-semantic-commits $path)
+          path=(~/bin ~/.local/bin ~/scripts ~/git-semantic-commits $path)
 
           # Export environment variables.
           export GPG_TTY=$TTY
@@ -249,6 +251,7 @@
         export PATH=''${PATH}:~/git-semantic-commits
         export PATH=''${PATH}:''${GOPATH}/bin
         export PATH=''${PATH}:"$(ruby -e 'puts Gem.user_dir')/bin"
+        export PATH=''${PATH}:~/.local/bin
         export PATH=''${PATH}:~/.local/share/bin
         export PATH="$PATH":"$HOME/.pub-cache/bin"
         export PATH=''${PATH}:''${NPM_CONFIG_PREFIX}/bin
