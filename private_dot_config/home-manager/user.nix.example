@@ -1,12 +1,12 @@
 {
   darwin = {
-    username = "nqa";
+    username = "qa";
     hostname = "Quocs-MacBook-Pro";
     system = "aarch64-darwin";
   };
   nixos = {
-    username = "nqa";
-    hostname = "nixos-host";
+    username = "qa";
+    hostname = "nixos";
     system = "x86_64-linux";
   };
 }
