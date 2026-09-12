@@ -75,6 +75,11 @@
   services.desktopManager.cosmic.enable = true;
   services.system76-scheduler.enable = true;
 
+  environment.cosmic.excludePackages = with pkgs; [
+    cosmic-edit
+    cosmic-term
+  ];
+
   services.printing.enable = false;
 
   services.pulseaudio.enable = false;
