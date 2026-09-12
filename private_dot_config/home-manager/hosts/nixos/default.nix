@@ -51,8 +51,6 @@
     settings = {
       experimental-features = ["nix-command" "flakes"];
       trusted-users = ["root" userConfig.username];
-      extra-substituters = ["https://noctalia.cachix.org"];
-      extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
     };
 
     gc = {
@@ -62,8 +60,6 @@
     };
   };
 
-  programs.niri.enable = true;
-  programs.xwayland.enable = true;
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
@@ -72,11 +68,12 @@
     ];
   };
 
-  services.greetd = {
-    enable = true;
-    useTextGreeter = true;
-    settings.default_session.command = "${lib.getExe pkgs.tuigreet} --time --remember --cmd ${lib.getExe' config.programs.niri.package "niri-session"}";
-  };
+  # Enable the COSMIC login manager
+  services.displayManager.cosmic-greeter.enable = true;
+
+  # Enable the COSMIC desktop environment
+  services.desktopManager.cosmic.enable = true;
+  services.system76-scheduler.enable = true;
 
   services.printing.enable = false;
 
@@ -96,27 +93,8 @@
   };
 
   services.automatic-timezoned.enable = true;
-  services.power-profiles-daemon.enable = true;
-  services.upower.enable = true;
-  services.logind.settings.Login = {
-    HandleLidSwitch = "ignore";
-    HandleLidSwitchExternalPower = "ignore";
-    HandleLidSwitchDocked = "ignore";
-    HandlePowerKey = "ignore";
-  };
-  services.fprintd.enable = true;
 
-  systemd.services.lock-sessions-before-sleep = {
-    description = "Lock graphical sessions before sleep";
-    wantedBy = ["sleep.target"];
-    before = ["sleep.target"];
-    unitConfig.DefaultDependencies = false;
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${lib.getExe' pkgs.systemd "loginctl"} lock-sessions";
-      ExecStartPost = "${lib.getExe' pkgs.coreutils "sleep"} 1";
-    };
-  };
+  services.fprintd.enable = true;
 
   programs.firefox.enable = true;
 
