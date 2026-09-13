@@ -61,6 +61,8 @@
     gh
 
     codegraph
+    ripwire
+
 
     # (pkgs.google-cloud-sdk.withExtraComponents [
     #   pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
@@ -89,6 +91,10 @@
   # Suppress the "Last login: ... on ttys..." banner login(1) prints on each
   # new terminal. An empty ~/.hushlogin silences it.
   home.file.".hushlogin".text = "";
+
+  # One stable path for ripwire's agent assets (hooks/ + skills/), repointed by
+  # home-manager on every switch.
+  home.file.".ripwire/share".source = "${pkgs.ripwire}/share/ripwire";
 
   programs = {
     home-manager = {
@@ -468,6 +474,43 @@
   home.activation.skillsSync = lib.hm.dag.entryAfter ["claudeSetup" "codexSetup"] ''
     export PATH="${config.home.profileDirectory}/bin:$PATH"
     $DRY_RUN_CMD bash ${../bootstrap/skills-sync.sh} || true
+  '';
+
+  # Re-register ripwire's Claude skills + hooks through ~/.ripwire/share above.
+  # Invoked via the stable path, upstream's installer writes that path into
+  # every symlink and settings.json hook command, so an upgrade only moves the
+  # one symlink home-manager owns. Idempotent: it refreshes an existing entry's
+  # command and matcher in place (matching by script name, not by path), which
+  # is also what migrates the store-path entries registered before this.
+  # Needs linkGeneration for the symlink and jq to merge settings.json.
+  # Drop `--claude` to install hooks only; use `--codex` instead to put the
+  # skills in ~/.agents/skills and let skillsSync fan them out to both agents.
+  home.activation.ripwireSetup = lib.hm.dag.entryAfter ["linkGeneration" "skillsSync"] ''
+    export PATH="${lib.makeBinPath [pkgs.jq]}:${config.home.profileDirectory}/bin:$PATH"
+
+    # Repoint any ripwire hook command still naming a store path at the stable
+    # one. Upstream's installer refreshes the PreToolUse and UserPromptSubmit
+    # commands in place, but writes SessionStart only on first install and never
+    # refreshes it — so that entry alone would keep an upgraded-away store path
+    # and fail once it is garbage-collected. Touches only ripwire's own
+    # commands; every other hook in the file is left byte-identical.
+    rwSettings="$HOME/.claude/settings.json"
+    if [ -f "$rwSettings" ] && grep -q "/nix/store/[^ ]*/share/ripwire/hooks/" "$rwSettings"; then
+      rwTmp="$(mktemp)"
+      if jq --arg dir "$HOME/.ripwire/share/hooks/" '
+        .hooks |= with_entries(.value |= map(.hooks |= map(
+          .command |= (if type == "string"
+                       then sub("/nix/store/[^ ]*/share/ripwire/hooks/"; $dir)
+                       else . end))))
+      ' "$rwSettings" >"$rwTmp" && [ -s "$rwTmp" ]; then
+        $DRY_RUN_CMD mv "$rwTmp" "$rwSettings"
+      else
+        rm -f "$rwTmp"
+        echo "ripwireSetup: could not rewrite ripwire hook paths in $rwSettings; left unchanged" >&2
+      fi
+    fi
+
+    $DRY_RUN_CMD bash "$HOME/.ripwire/share/skills/install.sh" --claude --hook || true
   '';
 
   editorconfig = {
