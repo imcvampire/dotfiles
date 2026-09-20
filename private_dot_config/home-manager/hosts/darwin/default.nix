@@ -226,7 +226,6 @@ in {
         "anytype"
         "ibkr"
         "portfolioperformance"
-        "raycast"
         "intellij-idea"
         "zed"
         "lunar"
@@ -238,7 +237,6 @@ in {
         "tablepro"
         "cmux"
         "claude"
-        "thaw"
       ]
       ++ brewCustom.casks
     );

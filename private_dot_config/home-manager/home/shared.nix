@@ -25,9 +25,13 @@
     gettext
     gawk
 
+    vicinae
+
     docker
 
     pgcli
+
+    omp
 
     # devenv
     just
@@ -60,9 +64,7 @@
     kubectl
     gh
 
-    codegraph
     ripwire
-
 
     # (pkgs.google-cloud-sdk.withExtraComponents [
     #   pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
