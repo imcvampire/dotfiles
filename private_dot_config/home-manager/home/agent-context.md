@@ -1,4 +1,4 @@
-# Testing discipline
+## Testing discipline
 
 - Test behavior your application actually owns.
 - Start with linting and type-checking.

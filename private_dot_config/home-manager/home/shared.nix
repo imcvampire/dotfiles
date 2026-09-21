@@ -32,6 +32,7 @@
     pgcli
 
     omp
+    ripwire
 
     # devenv
     just
@@ -64,13 +65,9 @@
     kubectl
     gh
 
-    ripwire
-
     # (pkgs.google-cloud-sdk.withExtraComponents [
     #   pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
     # ])
-
-    beads
 
     zotero
 

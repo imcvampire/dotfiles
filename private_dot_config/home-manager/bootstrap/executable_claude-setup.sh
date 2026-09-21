@@ -13,7 +13,8 @@ export GIT_TERMINAL_PROMPT=0
 
 log() { printf "[%s] claude-setup: %s\n" "$(date +%H:%M:%S)" "$*"; }
 step() {
-  local name="$1"; shift
+  local name="$1"
+  shift
   log "→ $name"
   local t0=$(date +%s)
   if "$@"; then
@@ -24,7 +25,10 @@ step() {
   fi
 }
 
-command -v claude >/dev/null 2>&1 || { log "claude CLI missing, skipping"; exit 0; }
+command -v claude >/dev/null 2>&1 || {
+  log "claude CLI missing, skipping"
+  exit 0
+}
 
 log "start"
 
@@ -57,21 +61,6 @@ done
 # Claude-only skills plus one symlink per shared skill. That fan-out lives in
 # skills-sync.sh (home.activation.skillsSync, also on PATH as `skills-sync`),
 # shared with Codex — not here.
-
-# ─── Statusline ──────────────────────────────────────────────────────────────
-# Point Claude Code at ~/.claude/statusline.sh. Idempotent jq merge into
-# settings.json (preserves all other keys). Skipped if jq missing.
-set_statusline() {
-  local settings="$HOME/.claude/settings.json"
-  command -v jq >/dev/null 2>&1 || { log "jq missing, skip statusline"; return 0; }
-  mkdir -p "$(dirname "$settings")"
-  [ -s "$settings" ] || echo '{}' > "$settings"
-  local tmp
-  tmp=$(mktemp)
-  jq '.statusLine = {"type":"command","command":"bash ~/.claude/statusline.sh"}' \
-    "$settings" > "$tmp" && mv "$tmp" "$settings"
-}
-step "statusline" set_statusline
 
 # ─── MCP servers via install-mcp ───────────────────────────────────────────
 # Registers MCPs in Claude Code (~/.claude.json) and Claude Desktop
