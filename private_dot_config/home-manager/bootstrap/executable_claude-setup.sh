@@ -71,4 +71,21 @@ done
 step "install-mcp context7 --client claude" \
   npx -y install-mcp@latest @upstash/context7-mcp --client claude --yes
 
+# ─── MCP servers via claude mcp add (Claude Code, user scope) ──────────────
+# `claude mcp add` errors when the name exists, so skip registered ones.
+# Remove with `claude mcp remove -s user <name>` to re-register a changed one.
+add_mcp() {
+  local name="$1"
+  shift
+  if claude mcp get "$name" >/dev/null 2>&1; then
+    log "· mcp $name already registered"
+    return 0
+  fi
+  step "mcp $name" claude mcp add --scope user "$name" "$@"
+}
+
+add_mcp coingecko --transport http https://mcp.api.coingecko.com/mcp
+# Needs uvx (uv in home.packages) at server spawn time, not at registration.
+add_mcp yfinance -- uvx --from git+https://github.com/Alex2Yang97/yahoo-finance-mcp yahoo-finance-mcp
+
 log "done"

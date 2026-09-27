@@ -34,6 +34,8 @@
     omp
     ripwire
 
+    uv
+
     # devenv
     just
     tealdeer
