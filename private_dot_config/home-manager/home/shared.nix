@@ -71,8 +71,6 @@
     #   pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
     # ])
 
-    zotero
-
     monaspace
     atkinson-hyperlegible-next
     nerd-fonts.symbols-only

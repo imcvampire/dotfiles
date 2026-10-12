@@ -85,7 +85,7 @@ in {
           app = "/Applications/Microsoft Outlook.app";
         }
         {
-          app = "/Applications/zoom.us.app";
+          app = "/Applications/Microsoft Teams.app";
         }
         {
           app = "/System/Applications/Music.app";

@@ -14,6 +14,21 @@
 The goal is not to run fewer tests. The goal is to run the right
 tests, at the right layer, at the right time.
 
+## Search tools — prefer `rg`
+
+Use `rg` (ripgrep) for every shell-level text or file search. It respects `.gitignore`,
+skips hidden/binary files, and is far faster on large trees.
+
+- Content search: `rg PATTERN [PATH]`, not `grep -r`, `grep -R`, `ack`, `ag`, or `git grep`.
+- File discovery: `rg --files [PATH]`, filtered with `-g '<glob>'` or piped to `rg PATTERN`,
+  not `find`, `ls -R`, or `locate`.
+- Narrow early: `-t <type>`, `-g '!<glob>'`, `-l` (filenames only), `-m N` (cap hits), `-F` (literal).
+- Include ignored/hidden files only on purpose: `--hidden`, `--no-ignore`, `-uu`.
+- Plain `grep` is fine for filtering a pipe (`cmd | grep x`), but `rg` works there too.
+- Fall back to `find` only for metadata predicates rg lacks (`-mtime`, `-size`, `-perm`, `-newer`, `-empty`).
+- When the harness has dedicated search tools (e.g. Grep/Glob), prefer those over shell search.
+  ripwire (below) comes first for code orientation; `rg` is for raw text and file lookup.
+
 ## ripwire — deterministic codebase maps (on PATH as `ripwire`)
 
 Reach for it BEFORE blind grep + whole-file reads. First call ~1s cold; after that warm, ~0.1s.
